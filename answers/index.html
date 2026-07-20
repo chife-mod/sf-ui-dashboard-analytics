@@ -144,8 +144,35 @@
   details.method summary { cursor: pointer; color: var(--accent); font-weight: 600; }
   details.method div { padding: 6px 0 0; }
 
-  .implication { margin-top: 14px; padding: 9px 14px; border-left: 3px solid #3d4b59; background: var(--panel-2); border-radius: 0 8px 8px 0; font-size: 13.5px; }
+  .implication { margin-top: 12px; padding: 9px 14px; border-left: 3px solid #3d4b59; background: var(--panel-2); border-radius: 0 8px 8px 0; font-size: 13.5px; }
   .implication b { color: var(--pos); }
+
+  /* ── Opportunity layer ── */
+  .opp-signal { margin-top: 14px; padding: 9px 14px; border-left: 3px solid var(--warn); background: rgba(217,164,65,.07); border-radius: 0 8px 8px 0; font-size: 13.5px; }
+  .opp-signal b { color: var(--warn); }
+  .opp-signal.none { border-left-color: #4a5865; background: var(--panel-2); }
+  .opp-signal.none b { color: var(--muted); }
+  .badge.b-ow  { background: rgba(217,164,65,.16); color: var(--warn); }
+  .badge.b-sig { background: rgba(74,168,216,.14); color: var(--accent); }
+  .ow-strip { border: 1px solid var(--line); background: var(--panel); border-radius: 14px; padding: 15px 20px; margin-bottom: 18px; }
+  .ow-strip .ow-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 11px; }
+  .ow-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 0.12em; color: var(--warn); text-transform: uppercase; }
+  .ow-count { font-size: 13px; color: var(--muted); }
+  .ow-feature { border: 1px solid rgba(217,164,65,.35); background: rgba(217,164,65,.05); border-radius: 10px; padding: 12px 16px; }
+  .ow-feature h4 { font-size: 15.5px; margin-bottom: 7px; }
+  .ow-feature p { font-size: 13.5px; margin-bottom: 7px; }
+  .ow-feature .conf-row { margin-bottom: 9px; }
+  .ow-section { margin-top: 26px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 18px 22px; scroll-margin-top: 12px; }
+  .ow-section > h3 { font-size: 16px; margin-bottom: 4px; }
+  .ow-section .ow-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 14px; }
+  .ow-full { border: 1px solid rgba(217,164,65,.35); border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; }
+  .ow-full h4 { font-size: 15px; margin-bottom: 8px; }
+  .ow-full dl { display: grid; grid-template-columns: 205px 1fr; gap: 6px 16px; font-size: 13px; margin-top: 10px; }
+  @media (max-width: 640px) { .ow-full dl { grid-template-columns: 1fr; } }
+  .ow-full dt { color: var(--muted); }
+  .ow-mini { border: 1px solid var(--line); border-radius: 10px; padding: 11px 16px; margin-bottom: 9px; }
+  .ow-mini .t { font-weight: 650; margin-bottom: 4px; font-size: 14px; }
+  .ow-mini p { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
 
   .card-foot { display: flex; gap: 14px; align-items: center; margin-top: 13px; flex-wrap: wrap; }
   .evi-btn {
@@ -199,7 +226,7 @@
 </head>
 <body>
 
-<div class="demo-banner"><b>Концепт-прототип Answers-first · v2</b> · цифры — из реального дашборда (скриншоты 20.07.2026) · помесячное распределение, примеры сообщений и вердикты — иллюстративные, помечены</div>
+<div class="demo-banner"><b>Концепт-прототип Answers-first · v4</b> · цифры — из реального дашборда (скриншоты 20.07.2026) · помесячное распределение, примеры сообщений и вердикты — иллюстративные, помечены</div>
 
 <div class="topbar">
   <div class="logo">HT</div>
@@ -251,6 +278,27 @@
       <div class="e-note">гео-сравнение — недостаточно данных</div>
       <div class="e-more">Подробнее →</div>
     </a>
+  </div>
+
+  <!-- ═══════ Окна возможностей · сводка ═══════ -->
+  <div class="ow-strip">
+    <div class="ow-head">
+      <span class="ow-eyebrow">Окна возможностей</span>
+      <span class="ow-count">Обнаружено: 1 перспективное окно · 1 ранний сигнал · 2 области требуют данных</span>
+    </div>
+    <div class="ow-feature">
+      <h4>Посттрансплантационное сопровождение</h4>
+      <div class="conf-row">
+        <span class="badge b-ow">Перспективное окно</span>
+        <span class="badge b-med" title="Требуется co-mention анализ и разделение пациенты/клиники (data-трек)">Надёжность: средняя</span>
+        <span class="badge b-sig">Проверить сейчас</span>
+      </div>
+      <p>Операция не завершает путь клиента: обсуждение продолжается вокруг PRP, миноксидила,
+      средств ухода и контроля результата. <b>Возможность:</b> программа «пересадка + 12 месяцев
+      ухода и контроля результата». <b>Почему окно может закрыться:</b> услуга станет стандартом
+      рынка.</p>
+      <a class="method-link" href="#windows" style="font-weight:650; color:var(--warn)">Изучить возможность →</a>
+    </div>
   </div>
 
   <!-- ═══════ Вопрос 1 ═══════ -->
@@ -313,6 +361,8 @@
       </div>
     </div>
 
+    <div class="opp-signal none"><b>Сигнал возможности: не подтверждён.</b> Информационная активность
+    стабильна, но реальный спрос пока не отделён от публикаций клиник.</div>
     <div class="implication"><b>Рекомендация:</b> основной объём наблюдаемого обсуждения сосредоточен
     в социальных сетях и видео — эти каналы логично использовать для коммуникации. Однако сначала
     необходимо отделить органический пациентский интерес от публикаций клиник (data-трек) — в том
@@ -401,6 +451,9 @@
       </div>
     </div>
 
+    <div class="opp-signal"><b>Ранний сигнал: доверие через прозрачность.</b> Негатив ограничен, но
+    вопросы о рисках и восстановлении могут указывать на незакрытую потребность в честном объяснении
+    процедуры.</div>
     <div class="implication"><b>Рекомендация:</b> фокусировать коммуникацию на страхах и барьерах
     перед операцией — боль, риски, восстановление, прогнозируемость результата. Контент-ответ —
     реальные кейсы «до/после» и разбор страхов. Зафиксированный негатив — 6 % массива, но из-за
@@ -468,6 +521,9 @@
       </div>
     </div>
 
+    <div class="opp-signal"><b>Потенциальное окно: долгосрочное сопровождение.</b> Уход после
+    пересадки обсуждается как набор разрозненных процедур и средств, а не как единая программа
+    результата. <a href="#windows" style="color:var(--warn)">Карточка окна →</a></div>
     <div class="implication"><b>Рекомендация:</b> постпроцедурный уход выглядит как потенциальное
     направление повторных продаж (миноксидил, PRP, сыворотки). Для оценки реального коммерческого
     потенциала необходимо проверить совместные упоминания и пользовательские сценарии (data-трек).</div>
@@ -533,6 +589,8 @@
       </div>
     </div>
 
+    <div class="opp-signal none"><b>Окно пока не определено.</b> Внутренняя видимость клиник
+    измеряется, но данных о выборе между Украиной и зарубежьем недостаточно.</div>
     <div class="implication"><b>Рекомендация:</b> внутриукраинская карта видимости конкурентов уже
     рабочая — мониторить долю упоминаний и тональность по каждой клинике. Вопрос про отток за
     границу — главный кандидат на следующую итерацию исследования.</div>
@@ -553,6 +611,51 @@
     </div>
   </div>
 
+  <!-- ═══════ Окна возможностей · полная секция ═══════ -->
+  <div class="ow-section" id="windows">
+    <h3>Окна возможностей</h3>
+    <div class="ow-sub">Вывод более высокого уровня — строится на пересечении четырёх ответов
+    (динамика × барьеры × незакрытые сценарии × конкурентное поле). Максимум три, ранжированы по
+    силе доказательств. Идея слоя — Олег; методика — консилиум (артефакты 06a–06c).</div>
+
+    <div class="ow-full">
+      <h4>1 · Долгосрочное сопровождение после пересадки</h4>
+      <div class="conf-row">
+        <span class="badge b-ow">Перспективное окно</span>
+        <span class="badge b-med">Надёжность: средняя</span>
+        <span class="badge b-sig">Проверить сейчас</span>
+      </div>
+      <dl>
+        <dt>Незакрытая потребность</dt><dd>Пациенты не понимают, какой уход нужен, сколько он длится и кто отвечает за результат после операции.</dd>
+        <dt>Какие данные обнаружили</dt><dd>Параллельные обсуждения PRP (79), миноксидила (71 + 62), плазмотерапии (48), сывороток и шампуней; крупнейшая пост-категория — поддерживающая терапия (93).</dd>
+        <dt>Почему сейчас</dt><dd>Рынок заметно активнее продвигает саму операцию, чем структурированный долгосрочный результат.</dd>
+        <dt>Почему может закрыться</dt><dd>Если крупные клиники превратят годовые программы восстановления в стандарт рынка, программа перестанет быть конкурентным отличием.</dd>
+        <dt>Что может предложить клиент</dt><dd>Программа «пересадка + 12 месяцев»: средства, календарь ухода, дистанционный контроль, фотофиксация прогресса, гарантийный сценарий.</dd>
+        <dt>Следующий эксперимент</dt><dd>Предложить программу 20 пациентам; измерить конверсию, средний чек и удержание.</dd>
+      </dl>
+    </div>
+
+    <div class="ow-mini">
+      <div class="t">2 · Контент о рисках и восстановлении</div>
+      <div class="conf-row" style="margin-bottom:0">
+        <span class="badge b-sig">Ранний сигнал</span>
+        <span class="badge b-med">Проверить в ближайшие месяцы</span>
+      </div>
+      <p>Людям важна прогнозируемость процесса, а не только фото результата. Возможность: transparent
+      recovery content + консультационная воронка — позиционирование на прозрачности.</p>
+    </div>
+
+    <div class="ow-mini">
+      <div class="t">3 · Позиционирование украинских клиник против зарубежных</div>
+      <div class="conf-row" style="margin-bottom:0">
+        <span class="badge b-ins">Недостаточно данных</span>
+        <span class="badge b-ins">Сначала собрать данные</span>
+      </div>
+      <p>Реальное направление пациентского выбора (Украина vs Турция и др.) не измерено — сначала
+      geo-intent анализ (data-трек), затем оценка окна «кампании-перехвата».</p>
+    </div>
+  </div>
+
   <!-- ═══════ Methodology footer ═══════ -->
   <div class="method-foot" id="method">
     <h3>Методика и ограничения исследования</h3>
@@ -569,7 +672,7 @@
 </div>
 
 <div class="foot">
-  <span>Концепт v2 · студия · 20.07.2026 · с учётом ревью GPT-5 и Gemini</span>
+  <span>Концепт v4 · студия · 20.07.2026 · три раунда консилиума + opportunity-слой (идея Олега)</span>
   <a href="../analytics/">← Аудит, из которого вырос концепт</a>
   <a href="../report/SF-Dashboard-UX-Audit-2026-07-20.pdf" target="_blank" rel="noopener">PDF-отчёт</a>
 </div>
