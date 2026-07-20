@@ -78,6 +78,7 @@
   .exec .e-q { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
   .exec .e-a { font-size: 13.5px; line-height: 1.4; margin-bottom: 9px; min-height: 55px; }
   .exec .e-note { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .exec .e-more { font-size: 12px; color: var(--accent); font-weight: 650; margin-top: 9px; }
 
   /* badges */
   .badge { font-size: 11px; font-weight: 750; padding: 2.5px 10px; border-radius: 20px; letter-spacing: 0.02em; display: inline-block; cursor: help; }
@@ -95,24 +96,25 @@
 
   .kpis { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
   .kpi { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; min-width: 118px; }
-  .kpi .v { font-size: 19px; font-weight: 750; letter-spacing: -0.01em; }
-  .kpi .l { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .kpi .v { font-size: 23px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .l { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
   .kpi .v sup { font-size: 10px; color: var(--muted); font-weight: 600; cursor: help; }
 
   .verdict { font-size: 15.5px; line-height: 1.5; margin-bottom: 10px; }
-  .verdict b { color: var(--accent); font-weight: 700; }
+  .verdict b { color: var(--ink); font-weight: 700; }
+  .verdict .k { color: var(--accent); }
   .conf-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
-  .base-note { font-size: 12px; color: var(--muted); }
+  .base-note { font-size: 12.5px; line-height: 1.5; color: var(--muted); }
 
   .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 760px) { .body-grid { grid-template-columns: 1fr; } }
-  .viz-title { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .viz-title { font-size: 12px; color: #9db0be; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 9px; }
 
   /* bars */
-  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 13px; }
-  .bar-row .lbl { width: 160px; color: var(--muted); text-align: right; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 13.5px; }
+  .bar-row .lbl { width: 172px; color: #a9b9c6; text-align: right; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .bar-row .track { flex: 1; height: 15px; border-radius: 4px; background: var(--panel-2); overflow: hidden; }
-  .bar-row .fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #1578ab, #3f9fce); }
+  .bar-row .fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #1578ab, #3f9fce); transition: width .55s cubic-bezier(.2,.7,.3,1); }
   .bar-row .val { width: 76px; font-weight: 650; font-size: 12.5px; }
   .bar-row .val small { color: var(--muted); font-weight: 500; }
 
@@ -122,7 +124,7 @@
   .stack .s-pos { background: var(--pos); }
   .stack .s-neg { background: var(--neg); }
   .stack .s-neu { background: var(--neu); color: #cfd8df; }
-  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+  .legend { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
   .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
 
   /* mini dynamics */
@@ -147,10 +149,10 @@
 
   .card-foot { display: flex; gap: 14px; align-items: center; margin-top: 13px; flex-wrap: wrap; }
   .evi-btn {
-    background: rgba(74,168,216,.12); border: 1px solid rgba(74,168,216,.4); color: var(--ink);
+    background: rgba(74,168,216,.16); border: 1px solid rgba(74,168,216,.55); color: var(--ink);
     font-size: 13px; font-weight: 650; padding: 8px 16px; border-radius: 8px; cursor: pointer;
   }
-  .evi-btn:hover { background: rgba(74,168,216,.2); }
+  .evi-btn:hover { background: rgba(74,168,216,.26); }
   .method-link { font-size: 12.5px; color: var(--muted); }
   .method-link:hover { color: var(--accent); }
   .evi-src { display: none; }
@@ -189,6 +191,8 @@
   .method-foot dl { display: grid; grid-template-columns: 190px 1fr; gap: 7px 16px; font-size: 13px; }
   @media (max-width: 640px) { .method-foot dl { grid-template-columns: 1fr; } }
   .method-foot dt { color: var(--muted); }
+  .method-foot dl { font-size: 13.5px; line-height: 1.55; }
+  body.client .demo-banner, body.client .foot { display: none; }
   .foot { max-width: 1080px; margin: 8px auto 0; padding: 16px 24px 0; font-size: 13px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
   .foot a { color: var(--accent); }
 </style>
@@ -208,7 +212,7 @@
   <div class="tab ghost" title="В концепте активен только таб «Ответы» — остальное остаётся текущим дашбордом (слой поверх, не дробление)">Обзор</div>
   <div class="tab ghost" title="В концепте активен только таб «Ответы»">Альтернативы</div>
   <div class="tab ghost" title="В концепте активен только таб «Ответы»">Клиники</div>
-  <div class="tab ghost" title="В концепте активен только таб «Ответы»">Пост-уход</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы»">После процедуры</div>
   <div class="tab ghost" title="В концепте активен только таб «Ответы»">Средства</div>
   <div class="tab ghost" title="В концепте активен только таб «Ответы»">Справочник</div>
 </div>
@@ -226,22 +230,26 @@
       <div class="e-a">Активность стабильная; реальный спрос пока не отделён от контента клиник</div>
       <span class="badge b-med" title="Оценка учитывает размер выборки, долю классифицированных сообщений и возможность отделить пользовательский контент от публикаций клиник">Надёжность: средняя</span>
       <div class="e-note">спрос — недостаточно данных</div>
+      <div class="e-more">Подробнее →</div>
     </a>
     <a href="#q2">
       <div class="e-q">2 · Аудитория и отношение</div>
       <div class="e-a">Позитив преобладает среди определённых (6:1); демографии недостаточно</div>
       <span class="badge b-low" title="Оценка учитывает размер выборки, долю классифицированных сообщений и возможность отделить пользовательский контент от публикаций клиник">Надёжность: низкая</span>
+      <div class="e-more">Подробнее →</div>
     </a>
     <a href="#q3">
       <div class="e-q">3 · Замещение средств</div>
-      <div class="e-a">Не заменяет, а дополняет существующий уход</div>
+      <div class="e-a">Скорее дополняет уход; прямое замещение не подтверждено</div>
       <span class="badge b-med" title="Оценка учитывает размер выборки, долю классифицированных сообщений и возможность отделить пользовательский контент от публикаций клиник">Надёжность: средняя</span>
+      <div class="e-more">Подробнее →</div>
     </a>
     <a href="#q4">
       <div class="e-q">4 · Украина или зарубеж</div>
-      <div class="e-a">По клиникам Украины картина ясна; сравнение с зарубежьем — нет данных</div>
-      <span class="badge b-high" title="По украинским клиникам — высокая; по гео-сравнению — недостаточно данных">Клиники: высокая</span>
+      <div class="e-a">По видимости клиник Украины картина ясна; сравнение с зарубежьем — нет данных</div>
+      <span class="badge b-high" title="Объёмы упоминаний клиник — прямые данные мониторинга; по гео-сравнению — недостаточно данных">Видимость клиник: высокая</span>
       <div class="e-note">гео-сравнение — недостаточно данных</div>
+      <div class="e-more">Подробнее →</div>
     </a>
   </div>
 
@@ -249,21 +257,21 @@
   <div class="card" id="q1">
     <div class="q-row">
       <span class="num">ВОПРОС 1</span>
-      <span class="brief-tip" title="Формулировка из брифа: «Проаналізувати кількість та характер запитів, щоб оцінити потенціал і актуальність трансплантації волосся»">формулировка задачи ⓘ</span>
+      <span class="brief-tip" title="Формулировка из брифа: «Проаналізувати кількість та характер запитів, щоб оцінити потенціал і актуальність трансплантації волосся»">ⓘ</span>
     </div>
     <h3>Насколько тема живая и есть ли потенциал?</h3>
 
     <div class="kpis">
       <div class="kpi"><div class="v">1 839</div><div class="l">сообщений · 12 мес</div></div>
       <div class="kpi"><div class="v">≈ 35</div><div class="l">в неделю</div></div>
-      <div class="kpi"><div class="v">961</div><div class="l">автор · 438 сообществ</div></div>
+      <div class="kpi"><div class="v">961</div><div class="l">автор в 438 сообществах</div></div>
       <div class="kpi"><div class="v">17,1 млн <sup title="Метрика рассчитывается на основании доступных данных платформ и может включать оценочный потенциальный охват — не подтверждённые фактические просмотры. Методика требует уточнения у Semantic Force.">ⓘ</sup></div><div class="l">оценочный потенциальный охват</div></div>
     </div>
 
-    <p class="verdict"><b>Информационная активность стабильная:</b> 1 839 сообщений за 12 месяцев,
-    79 % объёма — соцсети и видео: тема обсуждается людьми, а не только СМИ. <b>Реальный пациентский
-    спрос надёжно оценить пока нельзя</b> — публикации клиник и пользователей не разделены, и часть
-    объёма может создаваться промо-активностью самих клиник.</p>
+    <p class="verdict"><b class="k">Информационная активность стабильная:</b> 1 839 сообщений за
+    12 месяцев, 79 % объёма — соцсети и видео. <b>Реальный пациентский спрос надёжно оценить пока
+    нельзя</b> — публикации клиник и пользователей не разделены, и часть объёма может создаваться
+    промо-активностью самих клиник.</p>
     <div class="conf-row">
       <span class="badge b-med" title="Оценка учитывает размер выборки, долю классифицированных сообщений и возможность отделить пользовательский контент от публикаций клиник">Активность темы · надёжность: средняя</span>
       <span class="badge b-ins" title="Нужна классификация авторов (пациент / клиника / медиа / реклама) — data-трек">Рыночный спрос · недостаточно данных</span>
@@ -305,9 +313,10 @@
       </div>
     </div>
 
-    <div class="implication"><b>Рекомендация:</b> основной канал коммуникации — видео и социальные
-    сети. Контент строить вокруг вопросов пациентов и реальных результатов. Прежде чем считать
-    майский всплеск ростом спроса — отделить органический интерес от публикаций клиник (data-трек).</div>
+    <div class="implication"><b>Рекомендация:</b> основной объём наблюдаемого обсуждения сосредоточен
+    в социальных сетях и видео — эти каналы логично использовать для коммуникации. Однако сначала
+    необходимо отделить органический пациентский интерес от публикаций клиник (data-трек) — в том
+    числе прежде чем считать майский всплеск ростом спроса.</div>
 
     <div class="card-foot">
       <button class="evi-btn" data-drawer="q1" data-init="all">5 сообщений, подтверждающих вывод →</button>
@@ -341,7 +350,7 @@
   <div class="card" id="q2">
     <div class="q-row">
       <span class="num">ВОПРОС 2</span>
-      <span class="brief-tip" title="Формулировка из брифа: «Чи зростає попит? Серед кого: чоловіки/жінки, молодші/старші? Ставлення до процедури»">формулировка задачи ⓘ</span>
+      <span class="brief-tip" title="Формулировка из брифа: «Чи зростає попит? Серед кого: чоловіки/жінки, молодші/старші? Ставлення до процедури»">ⓘ</span>
     </div>
     <h3>Кто аудитория и как относятся к процедуре?</h3>
 
@@ -351,10 +360,10 @@
       <div class="kpi"><div class="v">43 %</div><div class="l">сообщений с определённым отношением</div></div>
     </div>
 
-    <p class="verdict"><b>Среди сообщений с определённым отношением позитивные встречаются в 6 раз
-    чаще негативных</b> (680 против 114; база — 794 из 1 839, 43 %). Отношение остальных 1 045
-    сообщений не определено. Демография определена в слишком малой доле, чтобы строить портрет
-    аудитории.</p>
+    <p class="verdict"><b class="k">Среди сообщений с определённым отношением позитивные встречаются
+    в 6 раз чаще негативных</b> (680 против 114; база — 794 из 1 839, 43 %). Из-за покрытия
+    классификации в 43 % вывод остаётся предварительным; отношение остальных 1 045 сообщений не
+    определено. Демография определена в слишком малой доле, чтобы строить портрет аудитории.</p>
     <div class="conf-row">
       <span class="badge b-low" title="Оценка учитывает размер выборки, долю классифицированных сообщений и возможность отделить пользовательский контент от публикаций клиник">Надёжность вывода: низкая</span>
       <span class="base-note">сентимент — авторазметка без разделения «отношение к процедуре vs общая эмоция текста»</span>
@@ -392,9 +401,10 @@
       </div>
     </div>
 
-    <div class="implication"><b>Рекомендация:</b> работать не с «негативной репутацией процедуры»
-    (негатива всего 6 %), а со страхами перед операцией: боль, риски, восстановление и прогноз
-    результата. Контент-ответ — реальные кейсы «до/после» и разбор страхов.</div>
+    <div class="implication"><b>Рекомендация:</b> фокусировать коммуникацию на страхах и барьерах
+    перед операцией — боль, риски, восстановление, прогнозируемость результата. Контент-ответ —
+    реальные кейсы «до/после» и разбор страхов. Зафиксированный негатив — 6 % массива, но из-за
+    покрытия классификации вывод о репутации остаётся предварительным.</div>
 
     <div class="card-foot">
       <button class="evi-btn" data-drawer="q2" data-init="negt">Посмотреть 114 негативных сообщений →</button>
@@ -420,7 +430,7 @@
   <div class="card" id="q3">
     <div class="q-row">
       <span class="num">ВОПРОС 3</span>
-      <span class="brief-tip" title="Формулировка из брифа: «Чи заміняє трансплантація косметичні/лікувальні продукти чи ні? Якщо не заміняє — яка рутина в людини»">формулировка задачи ⓘ</span>
+      <span class="brief-tip" title="Формулировка из брифа: «Чи заміняє трансплантація косметичні/лікувальні продукти чи ні? Якщо не заміняє — яка рутина в людини»">ⓘ</span>
     </div>
     <h3>Пересадка заменяет уход — или тянет его за собой?</h3>
 
@@ -430,9 +440,10 @@
       <div class="kpi"><div class="v">93</div><div class="l">поддерживающая терапия после</div></div>
     </div>
 
-    <p class="verdict"><b>По структуре обсуждений — не заменяет, а дополняет:</b> консервативные
+    <p class="verdict"><b class="k">По текущей структуре обсуждений пересадка скорее дополняет
+    существующий уход,</b> однако прямое замещение средствами пока не измерено. Консервативные
     методы активно обсуждаются параллельно пересадке, а крупнейшая пост-категория — поддерживающая
-    терапия после процедуры. Пересадка выглядит этапом маршрута, после которого уход продолжается.</p>
+    терапия после процедуры: пересадка выглядит этапом маршрута, после которого уход продолжается.</p>
     <div class="conf-row">
       <span class="badge b-med" title="Оценка учитывает размер выборки, долю классифицированных сообщений и возможность отделить пользовательский контент от публикаций клиник">Надёжность вывода: средняя</span>
       <span class="base-note">гипотеза по объёмам категорий · прямой ответ даст co-mention анализ (data-трек)</span>
@@ -457,12 +468,12 @@
       </div>
     </div>
 
-    <div class="implication"><b>Рекомендация:</b> пациент после пересадки — постоянный клиент на
-    уход (миноксидил, PRP, сыворотки). Продуктовая линейка и ретеншн-программы «после процедуры» —
-    прямой источник выручки, который обсуждения уже подтверждают.</div>
+    <div class="implication"><b>Рекомендация:</b> постпроцедурный уход выглядит как потенциальное
+    направление повторных продаж (миноксидил, PRP, сыворотки). Для оценки реального коммерческого
+    потенциала необходимо проверить совместные упоминания и пользовательские сценарии (data-трек).</div>
 
     <div class="card-foot">
-      <button class="evi-btn" data-drawer="q3" data-init="all">Сообщения о рутине ухода →</button>
+      <button class="evi-btn" data-drawer="q3" data-init="all">Посмотреть сообщения об уходе →</button>
       <a class="method-link" href="#method">Методика и ограничения</a>
     </div>
     <div class="evi-src" id="src-q3" data-title="Вопрос 3 · Замещение средств">
@@ -481,7 +492,7 @@
   <div class="card" id="q4">
     <div class="q-row">
       <span class="num">ВОПРОС 4</span>
-      <span class="brief-tip" title="Формулировка из брифа: «Процедуру роблять в Україні чи шукають де зробити закордоном? Якщо в Україні — чи є згадки де роблять?»">формулировка задачи ⓘ</span>
+      <span class="brief-tip" title="Формулировка из брифа: «Процедуру роблять в Україні чи шукають де зробити закордоном? Якщо в Україні — чи є згадки де роблять?»">ⓘ</span>
     </div>
     <h3>Украина или зарубеж — и кто лидирует внутри страны?</h3>
 
@@ -491,25 +502,27 @@
       <div class="kpi"><div class="v">0</div><div class="l">зарубежных направлений в таксономии</div></div>
     </div>
 
-    <p class="verdict"><b>Внутри Украины конкуренция видна отчётливо</b> — явный лидер по доле голоса
-    Hair Globalmedik (127 упоминаний из 629 в топ-10). <b>Сравнить Украину с зарубежьем текущие данные
-    не позволяют:</b> зарубежные направления (Турция и др.) в таксономии не отслеживаются.</p>
+    <p class="verdict"><b class="k">Внутри Украины конкуренция по видимости отчётлива:</b>
+    Hair Globalmedik лидирует по доле упоминаний в отслеживаемом массиве — 127 из 629 упоминаний
+    топ-10 клиник. <b>Сравнить Украину с зарубежьем текущие данные не позволяют</b> — зарубежные
+    направления (Турция и др.) в таксономии не отслеживаются.</p>
     <div class="conf-row">
-      <span class="badge b-high" title="Объёмы упоминаний клиник — прямые данные мониторинга">По клиникам Украины · надёжность: высокая</span>
+      <span class="badge b-high" title="Объёмы упоминаний клиник — прямые данные мониторинга; речь о видимости в обсуждениях, не о качестве клиник">Видимость клиник · надёжность: высокая</span>
       <span class="badge b-ins" title="Нужна модель location intent: Ukraine / Abroad / Undecided / Already done — data-трек">Украина vs зарубеж · недостаточно данных</span>
     </div>
 
     <div class="body-grid">
       <div>
-        <div class="viz-title">Доля голоса · топ клиник Украины · 629 упоминаний топ-10</div>
+        <div class="viz-title">Доля упоминаний · топ клиник Украины · 629 упоминаний топ-10</div>
         <div class="bar-row"><span class="lbl">Hair Globalmedik</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">127 <small>· 20 %</small></span></div>
         <div class="bar-row"><span class="lbl">HairMed</span><div class="track"><div class="fill" style="width:86%"></div></div><span class="val">109 <small>· 17 %</small></span></div>
         <div class="bar-row"><span class="lbl">SmartCare Medical</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="val">81 <small>· 13 %</small></span></div>
         <div class="bar-row"><span class="lbl">MHT Clinics</span><div class="track"><div class="fill" style="width:57%"></div></div><span class="val">73 <small>· 12 %</small></span></div>
         <div class="bar-row"><span class="lbl">HappyNewHair</span><div class="track"><div class="fill" style="width:39%"></div></div><span class="val">50 <small>· 8 %</small></span></div>
         <div class="bar-row"><span class="lbl">LaserOne Clinic</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="val">48 <small>· 8 %</small></span></div>
-        <p class="base-note" style="margin-top:6px">Доля голоса ≠ качество: лидер может быть громким
-        за счёт собственного промо. Разделение «органика vs контент клиники» — с data-треком.</p>
+        <p class="base-note" style="margin-top:6px">Доля упоминаний ≠ качество и ≠ доля рынка: лидер
+        может быть громким за счёт собственного промо. Разделение «органика vs контент клиники» —
+        с data-треком.</p>
       </div>
       <div>
         <div class="viz-title">Что нужно, чтобы ответить полностью</div>
@@ -520,12 +533,12 @@
       </div>
     </div>
 
-    <div class="implication"><b>Рекомендация:</b> внутриукраинская карта конкурентов уже рабочая —
-    мониторить долю голоса и тональность по каждой клинике. Вопрос про отток за границу — главный
-    кандидат на следующую итерацию исследования.</div>
+    <div class="implication"><b>Рекомендация:</b> внутриукраинская карта видимости конкурентов уже
+    рабочая — мониторить долю упоминаний и тональность по каждой клинике. Вопрос про отток за
+    границу — главный кандидат на следующую итерацию исследования.</div>
 
     <div class="card-foot">
-      <button class="evi-btn" data-drawer="q4" data-init="all">Сообщения о выборе клиники →</button>
+      <button class="evi-btn" data-drawer="q4" data-init="all">Посмотреть упоминания клиник →</button>
       <a class="method-link" href="#method">Методика и ограничения</a>
     </div>
     <div class="evi-src" id="src-q4" data-title="Вопрос 4 · Украина или зарубеж">
@@ -606,6 +619,22 @@
 
   document.querySelectorAll('.evi-btn').forEach(b =>
     b.addEventListener('click', () => openDrawer(b.dataset.drawer, b.dataset.init || 'all')));
+  const qs = new URLSearchParams(location.search);
+  const dq = qs.get('drawer');
+  if (dq && document.getElementById('src-' + dq)) openDrawer(dq, 'all');
+
+  // Клиентский режим: без демо-баннера и внутренних ссылок (?client)
+  if (qs.has('client')) document.body.classList.add('client');
+
+  // Stagger-анимация баров при появлении карточки в вьюпорте (флагман-идея Gemini)
+  document.querySelectorAll('.card .fill').forEach(f => { f.dataset.w = f.style.width; f.style.width = '0'; });
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    [...en.target.querySelectorAll('.fill')].forEach((f, i) =>
+      setTimeout(() => { f.style.width = f.dataset.w; }, 90 * i));
+    io.unobserve(en.target);
+  }), { threshold: 0.2 });
+  document.querySelectorAll('.card').forEach(c => io.observe(c));
   document.getElementById('drawer-close').addEventListener('click', closeDrawer);
   backdrop.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
