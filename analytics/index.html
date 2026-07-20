@@ -122,6 +122,14 @@
   .status { font-size: 12px; font-weight: 750; padding: 2px 10px; border-radius: 20px; display: inline-block; margin-bottom: 7px; }
   .status.no { background: rgba(255,122,112,.14); color: var(--p0); }
   .status.half { background: rgba(255,180,94,.14); color: var(--p1); }
+  .wtag { display: inline-block; font-size: 11px; font-weight: 750; padding: 2px 10px; border-radius: 20px; margin: 0 6px 4px 0; }
+  .wtag.ow  { background: rgba(255,180,94,.16); color: var(--p1); }
+  .wtag.sig { background: rgba(58,160,212,.14); color: var(--accent); }
+  .wtag.ins { background: rgba(146,163,177,.18); color: var(--muted); }
+  .wcard { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; }
+  .wcard.featured { border-color: rgba(255,180,94,.4); background: rgba(255,180,94,.05); }
+  .wcard .t { font-weight: 650; margin-bottom: 6px; }
+  .wcard p { font-size: 13.5px; margin: 4px 0 0; }
 
   /* opinion panes */
   .prob { margin-bottom: 14px; }
@@ -283,16 +291,41 @@
       (классификация consumer/provider, intent, гео-намерение, LLM-вердикты) — параллельно, не блокирует A.</p>
       <p class="small"><a href="../answers/">Кликабельный концепт Answers-first — собран, смотреть →</a></p>
     </div>
-    <div class="callout">
-      <p><strong>Развитие флагмана — «Окна возможностей» (идея Олега, вечер 20.07).</strong>
-      Третий слой поверх Answers-first: <strong>Данные → Ответы → Окна</strong>. Окно = ускоряющийся
-      спрос × незакрытая потребность × слабая реакция конкурентов × ограниченный срок входа, с
-      обязательным ответом «почему окно закроется». Первые гипотезы окон для этой темы: годовое
-      пост-трансплантационное сопровождение (продавать результат, а не операцию) · «окно доверия»
-      через честный контент о страхах · video-first консультационный канал (79 % объёма — соцсети
-      и видео) · категорийное лидерство на фрагментированном рынке 35 клиник. Проработка консилиумом —
-      артефакты 06a (GPT) и 06b (Gemini), выжимка — в табе «Олег».</p>
+    <h2>Окна возможностей — третий слой аналитики</h2>
+    <p><strong>Идея Олега:</strong> «бизнес успешен, когда есть окно возможностей — и мало кто может
+    его узреть». Третий слой поверх Answers-first: <strong>Данные → Ответы → Окна</strong>. Окно —
+    не пятый вопрос исследования, а вывод на пересечении четырёх ответов: <em>ускоряющийся спрос ×
+    незакрытая потребность × слабая реакция конкурентов × ограниченный срок входа</em>, с обязательным
+    ответом «почему окно закроется».</p>
+    <p class="small muted" style="margin-bottom:12px">Обнаружено в данных этой темы: 1 перспективное
+    окно · 1 ранний сигнал · 2 области требуют данных.</p>
+
+    <div class="wcard featured">
+      <div class="t">1 · Посттрансплантационное сопровождение</div>
+      <span class="wtag ow">Перспективное окно</span><span class="wtag ow">Надёжность: средняя</span><span class="wtag sig">Проверить сейчас</span>
+      <p>Операция не завершает путь клиента: обсуждение продолжается вокруг PRP (79), миноксидила
+      (71 + 62), плазмотерапии (48) и средств ухода; крупнейшая пост-категория — поддерживающая
+      терапия (93). <strong>Возможность:</strong> программа «пересадка + 12 месяцев ухода и контроля
+      результата». <strong>Почему закроется:</strong> если крупные клиники сделают годовые программы
+      стандартом рынка, отличие исчезнет.</p>
     </div>
+    <div class="wcard">
+      <div class="t">2 · Контент о рисках и восстановлении («окно доверия»)</div>
+      <span class="wtag sig">Ранний сигнал</span><span class="wtag ow">Проверить в ближайшие месяцы</span>
+      <p>Людям важна прогнозируемость процесса, а не только фото «до/после». Возможность: transparent
+      recovery content + консультационная воронка — позиционирование на прозрачности.</p>
+    </div>
+    <div class="wcard">
+      <div class="t">3 · Позиционирование украинских клиник против зарубежных</div>
+      <span class="wtag ins">Недостаточно данных</span><span class="wtag ins">Сначала собрать данные</span>
+      <p>Направление пациентского выбора (Украина vs Турция и др.) не измерено — сначала geo-intent
+      анализ (data-трек), затем оценка окна «кампании-перехвата».</p>
+    </div>
+    <p class="small"><a href="../answers/#windows">Живой прототип слоя — секция «Окна возможностей» в Answers-концепте →</a>
+    <span class="muted">· проработка: артефакты
+    <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/06a-gpt-opportunity-windows.md" target="_blank" rel="noopener">06a</a> ·
+    <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/06b-gemini-opportunity-windows.md" target="_blank" rel="noopener">06b</a> ·
+    <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/06c-gpt-opportunity-integration.md" target="_blank" rel="noopener">06c</a></span></p>
 
     <h2>Quick wins (1–2 недели)</h2>
     <ol class="small">
