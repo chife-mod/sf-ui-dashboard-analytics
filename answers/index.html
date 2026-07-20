@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Answers-first — концепт первого экрана · Hair Transplantation</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23116490'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='42' fill='white'%3EA%3C/text%3E%3C/svg%3E">
+
+<!-- Nav pill from the shared Vsevolod base -->
+<link rel="stylesheet" href="https://chife-mod.github.io/sfg-dashboard/base/service-menu.css">
+<script>
+  window.PREVIEW_PROJECT_NAME = "SF Dashboard Analytics";
+  window.PREVIEW_DEFAULT_VERSION = "answers";
+  window.PREVIEW_VERSIONS = [
+    { id: "answers",   label: "SF DASH ANALYTICS · Answers-first", desc: "Концепт первого экрана", path: "answers/" },
+    { id: "analytics", label: "SF DASH ANALYTICS · Analytics",     desc: "UX/UI-аудит дашборда",   path: "analytics/" },
+    { id: "launcher",  label: "SF DASH ANALYTICS · Dashboard",     desc: "Main launcher",           path: "" }
+  ];
+</script>
+
+<style>
+  :root {
+    --bg: #0e1319;
+    --panel: #151c25;
+    --panel-2: #1a2330;
+    --line: #26313e;
+    --ink: #e9eef4;
+    --muted: #90a0af;
+    --accent: #4aa8d8;
+    --accent-deep: #116490;
+    --pos: #58b878;
+    --neg: #e07a72;
+    --neu: #55636f;
+    --warn: #d9a441;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px; line-height: 1.55;
+    padding-bottom: 120px;
+  }
+  .demo-banner {
+    background: #2a2415; color: #e8c874; font-size: 12.5px;
+    padding: 8px 20px; text-align: center; border-bottom: 1px solid #3a3220;
+  }
+  .demo-banner b { font-weight: 700; }
+
+  /* ── Dashboard chrome (concept) ── */
+  .topbar {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 28px; border-bottom: 1px solid var(--line);
+  }
+  .topbar .logo {
+    width: 34px; height: 34px; border-radius: 8px; background: var(--accent-deep);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;
+  }
+  .topbar h1 { font-size: 19px; letter-spacing: -0.01em; }
+  .topbar .period {
+    margin-left: auto; font-size: 12.5px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 8px; padding: 5px 12px; background: var(--panel);
+  }
+  .topbar .period b { color: var(--ink); font-weight: 600; }
+
+  .tabs {
+    display: flex; gap: 2px; padding: 0 20px; border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 11px 16px; font-size: 13.5px; color: var(--muted); cursor: default;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+  }
+  .tab.active { color: var(--ink); font-weight: 650; border-bottom-color: var(--accent); }
+  .tab.ghost { opacity: 0.55; }
+  .tab.ghost:hover { opacity: 0.8; }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 26px 24px 0; }
+
+  .intro { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+  .intro h2 { font-size: 24px; letter-spacing: -0.02em; }
+  .intro .sub { color: var(--muted); font-size: 14px; }
+
+  /* ── Answer cards ── */
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px 26px; margin-bottom: 18px;
+  }
+  .card .q-row { display: flex; gap: 12px; align-items: baseline; margin-bottom: 4px; flex-wrap: wrap; }
+  .card .num {
+    font-size: 12px; font-weight: 800; color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .card .q-ua { font-size: 12.5px; color: var(--muted); font-style: italic; }
+  .card h3 { font-size: 17.5px; margin-bottom: 10px; letter-spacing: -0.01em; }
+
+  .verdict { font-size: 16.5px; line-height: 1.5; margin-bottom: 12px; }
+  .verdict b { color: var(--accent); font-weight: 700; }
+
+  .conf-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .badge {
+    font-size: 11px; font-weight: 750; padding: 3px 10px; border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .badge.high   { background: rgba(88,184,120,.15); color: var(--pos); }
+  .badge.medium { background: rgba(217,164,65,.15); color: var(--warn); }
+  .badge.low    { background: rgba(224,122,114,.15); color: var(--neg); }
+  .base-note { font-size: 12px; color: var(--muted); }
+
+  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .body-grid { grid-template-columns: 1fr; } }
+
+  .viz-title { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+  /* bars */
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 13px; }
+  .bar-row .lbl { width: 168px; color: var(--muted); text-align: right; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-row .track { flex: 1; height: 16px; border-radius: 4px; background: var(--panel-2); overflow: hidden; }
+  .bar-row .fill { height: 100%; border-radius: 4px; background: var(--accent-deep); }
+  .bar-row .val { width: 40px; font-weight: 650; font-size: 12.5px; }
+
+  /* stacked sentiment */
+  .stack { display: flex; height: 26px; border-radius: 6px; overflow: hidden; font-size: 11.5px; font-weight: 700; margin-bottom: 6px; }
+  .stack div { display: flex; align-items: center; justify-content: center; color: #0e1319; }
+  .stack .s-pos { background: var(--pos); }
+  .stack .s-neg { background: var(--neg); }
+  .stack .s-neu { background: var(--neu); color: #cfd8df; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+
+  /* mini dynamics */
+  .spark { display: flex; align-items: flex-end; gap: 2px; height: 74px; margin-bottom: 6px; }
+  .spark div { flex: 1; background: var(--accent-deep); border-radius: 2px 2px 0 0; min-height: 2px; }
+  .spark div.peak { background: var(--accent); }
+  .axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+
+  .insufficient {
+    border: 1px dashed var(--line); border-radius: 8px; padding: 10px 14px;
+    font-size: 12.5px; color: var(--muted); margin-top: 10px;
+  }
+  .insufficient b { color: var(--warn); }
+
+  .implication {
+    margin-top: 16px; padding: 10px 14px; border-left: 3px solid var(--accent);
+    background: var(--panel-2); border-radius: 0 8px 8px 0; font-size: 13.5px;
+  }
+  .implication b { color: var(--accent); }
+
+  /* evidence */
+  .evi-toggle {
+    margin-top: 14px; background: none; border: 1px solid var(--line); color: var(--ink);
+    font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+  }
+  .evi-toggle:hover { background: var(--panel-2); }
+  .evidence { display: none; margin-top: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .evidence.open { display: block; }
+  .chips { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .chip {
+    font-size: 12px; font-weight: 650; padding: 4px 12px; border-radius: 20px;
+    border: 1px solid var(--line); color: var(--muted); cursor: pointer; background: none;
+  }
+  .chip.on { border-color: var(--accent); color: var(--accent); background: rgba(74,168,216,.08); }
+  .msg {
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .msg .meta { display: flex; gap: 8px; font-size: 11.5px; color: var(--muted); margin-bottom: 4px; flex-wrap: wrap; align-items: center; }
+  .msg .mtag { font-size: 10.5px; font-weight: 750; padding: 1px 8px; border-radius: 10px; }
+  .mtag.promo { background: rgba(217,164,65,.15); color: var(--warn); }
+  .mtag.user  { background: rgba(88,184,120,.15); color: var(--pos); }
+  .mtag.negt  { background: rgba(224,122,114,.15); color: var(--neg); }
+  .msg .demo-mark { font-size: 10.5px; color: var(--muted); font-style: italic; }
+  .evi-note { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+
+  .foot {
+    max-width: 1060px; margin: 8px auto 0; padding: 18px 24px 0; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap;
+  }
+  .foot a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="demo-banner"><b>Концепт-прототип Answers-first</b> · собран по итогам аудита 20.07.2026 · цифры — из реального дашборда (скриншоты), примеры сообщений и формулировки вердиктов — иллюстративные, помечены</div>
+
+<div class="topbar">
+  <div class="logo">HT</div>
+  <h1>Hair Transplantation</h1>
+  <div class="period">Период: <b>20 июля 2025 — 20 июля 2026</b> · 12 мес</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active">Ответы</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы» — остальное остаётся текущим дашбордом (слой поверх, не дробление)">Обзор</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы»">Альтернативы</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы»">Клиники</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы»">Пост-уход</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы»">Средства</div>
+  <div class="tab ghost" title="В концепте активен только таб «Ответы»">Справочник</div>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <h2>Ответы на ваши вопросы исследования</h2>
+    <div class="sub">4 задачи из брифа · обновлено 20.07.2026 · каждая цифра кликабельна до сообщений-доказательств</div>
+  </div>
+
+  <!-- ═══════ Вопрос 1 ═══════ -->
+  <div class="card">
+    <div class="q-row">
+      <span class="num">ВОПРОС 1</span>
+      <span class="q-ua">«Проаналізувати кількість та характер запитів, щоб оцінити потенціал і актуальність трансплантації волосся»</span>
+    </div>
+    <h3>Насколько тема живая и есть ли потенциал?</h3>
+    <p class="verdict"><b>Тема живая и устойчиво активная:</b> 1 839 сообщений за 12 месяцев
+    (≈ 35 в неделю) от 961 автора в 438 сообществах, охват 17,1 млн просмотров. Всплеск —
+    начало мая 2026 (до 112 сообщений/день). 79 % объёма — соцсети и видео: тема обсуждается
+    людьми, а не только СМИ.</p>
+    <div class="conf-row">
+      <span class="badge medium">Confidence · Medium</span>
+      <span class="base-note">база: 1 839 сообщений · без разделения «пациенты vs клиники» (data-трек) вердикт о росте спроса дать нельзя</span>
+    </div>
+    <div class="body-grid">
+      <div>
+        <div class="viz-title">Динамика сообщений · по месяцам · 2025→2026</div>
+        <div class="spark" aria-label="Динамика сообщений по месяцам">
+          <div style="height:22%" title="авг 2025"></div><div style="height:18%" title="сен 2025"></div>
+          <div style="height:26%" title="окт 2025"></div><div style="height:24%" title="ноя 2025"></div>
+          <div style="height:30%" title="дек 2025"></div><div style="height:34%" title="янв 2026"></div>
+          <div style="height:40%" title="фев 2026"></div><div style="height:44%" title="мар 2026"></div>
+          <div style="height:52%" title="апр 2026"></div><div class="peak" style="height:100%" title="май 2026 — пик: до 112/день"></div>
+          <div style="height:58%" title="июн 2026"></div><div style="height:46%" title="июл 2026"></div>
+        </div>
+        <div class="axis"><span>авг 2025</span><span>янв 2026</span><span>июл 2026</span></div>
+      </div>
+      <div>
+        <div class="viz-title">Где обсуждают · топ типов медиа</div>
+        <div class="bar-row"><span class="lbl">Соцсети</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">846</span></div>
+        <div class="bar-row"><span class="lbl">Видео</span><div class="track"><div class="fill" style="width:72%"></div></div><span class="val">612</span></div>
+        <div class="bar-row"><span class="lbl">Онлайн-СМИ</span><div class="track"><div class="fill" style="width:36%"></div></div><span class="val">308</span></div>
+        <div class="bar-row"><span class="lbl">Форумы</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="val">29</span></div>
+        <div class="bar-row"><span class="lbl">Агрегаторы</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="val">29</span></div>
+      </div>
+    </div>
+    <div class="implication"><b>Что это значит для вас:</b> аудитория для контента есть и живёт в
+    соцсетях и видео (Facebook 425 · YouTube 319 · TikTok 291). Майский всплеск стоит разобрать
+    отдельно — это шаблон успешного охвата.</div>
+    <button class="evi-toggle" data-evi="evi1">Показать доказательства · 5 сообщений →</button>
+    <div class="evidence" id="evi1">
+      <div class="chips" data-filter="evi1">
+        <button class="chip on" data-f="all">Все</button>
+        <button class="chip" data-f="user">Пользователи</button>
+        <button class="chip" data-f="promo">Клиники · промо</button>
+      </div>
+      <div class="msg" data-t="promo">
+        <div class="meta"><span class="mtag promo">Клиника · промо</span><span>Gold Laser · facebook.com · 30.06.2026</span><span>реальное сообщение из дашборда</span></div>
+        Довідка для басейну без зайвих клопотів у клініці Лазерна косметологія Київ | RF | SMAS | IPL | <mark>Пересадка волосся</mark> — консультація дерматолога зі знижкою 40 %…
+      </div>
+      <div class="msg" data-t="user">
+        <div class="meta"><span class="mtag user">Пользователь</span><span>Telegram-сообщество · май 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Хлопці, хто робив пересадку в Києві — скільки коштувало і як обрали клініку? Читаю вже тиждень, очі розбігаються…
+      </div>
+      <div class="msg" data-t="user">
+        <div class="meta"><span class="mtag user">Пользователь</span><span>YouTube-комментарий · апрель 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Дуже боюсь що буде видно шрами від FUE. У кого через рік після процедури — покажіть донорську зону, будь ласка.
+      </div>
+      <div class="msg" data-t="promo">
+        <div class="meta"><span class="mtag promo">Клиника · промо</span><span>Instagram · июнь 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Результат нашого пацієнта через 12 місяців: 3 200 графтів, метод DHI. Запис на безкоштовну консультацію — у дірект.
+      </div>
+      <div class="msg" data-t="user">
+        <div class="meta"><span class="mtag user">Пользователь</span><span>Форум · март 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Рік після пересадки + міноксидил щодня. Густота супер, але якби знав про догляд заздалегідь — готувався б інакше.
+      </div>
+      <div class="evi-note">В продакшене: реальные сообщения из базы с фильтрами по типу автора (data-трек · классификация «пациент / клиника / медиа»), сентименту и источнику — фильтруется только этот список, дашборд не перестраивается.</div>
+    </div>
+  </div>
+
+  <!-- ═══════ Вопрос 2 ═══════ -->
+  <div class="card">
+    <div class="q-row">
+      <span class="num">ВОПРОС 2</span>
+      <span class="q-ua">«Чи зростає попит? Серед кого: чоловіки/жінки, молодші/старші? Ставлення до процедури»</span>
+    </div>
+    <h3>Кто аудитория и как относятся к процедуре?</h3>
+    <p class="verdict"><b>Там, где отношение выражено, оно позитивное — 6 : 1</b> (680 позитивных
+    против 114 негативных). Но 57 % сообщений нейтральны или не размечены, а демография
+    определена в слишком малой доле сообщений, чтобы делать выводы о «портрете пациента».</p>
+    <div class="conf-row">
+      <span class="badge low">Confidence · Low</span>
+      <span class="base-note">сентимент: 794 из 1 839 (43 %) · пол: 141 (7,7 %) · возраст: 36 (2 %)</span>
+    </div>
+    <div class="body-grid">
+      <div>
+        <div class="viz-title">Отношение · все 1 839 сообщений, честная база</div>
+        <div class="stack">
+          <div class="s-pos" style="width:37%">680 · 37 %</div>
+          <div class="s-neg" style="width:6.5%">114</div>
+          <div class="s-neu" style="width:56.5%">нейтрально / не размечено · 1 045 · 57 %</div>
+        </div>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--pos)"></span>Позитив</span>
+          <span><span class="dot" style="background:var(--neg)"></span>Негатив · 6 %</span>
+          <span><span class="dot" style="background:var(--neu)"></span>Нейтраль/не размечено</span>
+        </div>
+      </div>
+      <div>
+        <div class="viz-title">Демография · показываем только с базой</div>
+        <div class="bar-row"><span class="lbl">Мужчины</span><div class="track"><div class="fill" style="width:87%"></div></div><span class="val">122</span></div>
+        <div class="bar-row"><span class="lbl">Женщины</span><div class="track"><div class="fill" style="width:13%"></div></div><span class="val">19</span></div>
+        <div class="insufficient"><b>Insufficient data:</b> пол определён лишь в 141 сообщении из
+        1 839 (7,7 %), возраст — в 36 (2 %). Для вывода «кто ваша аудитория» этой базы недостаточно —
+        нужен data-трек (классификация авторов). Текущий дашборд показывает эти 141 сообщение
+        как уверенную диаграмму — мы показываем честно.</div>
+      </div>
+    </div>
+    <div class="implication"><b>Что это значит для вас:</b> негатива в теме мало — барьер скорее
+    страх и незнание (см. вопрос 1, сообщения про шрамы), чем плохая репутация процедуры.
+    Контент-ответ: реальные кейсы «до/после» и разбор страхов.</div>
+    <button class="evi-toggle" data-evi="evi2">Показать доказательства · негатив отдельно →</button>
+    <div class="evidence" id="evi2">
+      <div class="chips" data-filter="evi2">
+        <button class="chip on" data-f="all">Все</button>
+        <button class="chip" data-f="negt">Только негатив</button>
+      </div>
+      <div class="msg" data-t="negt">
+        <div class="meta"><span class="mtag negt">Негатив</span><span>Instagram · февраль 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Пів року після процедури — густота не та, що обіцяли на консультації. Гроші чималі, результат середній.
+      </div>
+      <div class="msg" data-t="user">
+        <div class="meta"><span class="mtag user">Позитив</span><span>Telegram · апрель 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Найкраще рішення за останні роки. Шкодую лише, що не зробив раніше — комплексував років п'ять.
+      </div>
+      <div class="evi-note">В продакшене: клик по любому сегменту шкалы открывает эти сообщения; чипы фильтруют только список.</div>
+    </div>
+  </div>
+
+  <!-- ═══════ Вопрос 3 ═══════ -->
+  <div class="card">
+    <div class="q-row">
+      <span class="num">ВОПРОС 3</span>
+      <span class="q-ua">«Чи заміняє трансплантація косметичні/лікувальні продукти чи ні? Якщо не заміняє — яка рутина в людини»</span>
+    </div>
+    <h3>Пересадка заменяет уход — или тянет его за собой?</h3>
+    <p class="verdict"><b>По структуре обсуждений — не заменяет, а дополняет:</b> консервативные
+    методы (PRP · 79, миноксидил · 71, мезотерапия · 53) активно обсуждаются параллельно пересадке,
+    а крупнейшая пост-категория — поддерживающая терапия после процедуры (93). Пересадка выглядит
+    этапом маршрута, после которого уход продолжается.</p>
+    <div class="conf-row">
+      <span class="badge medium">Confidence · Medium</span>
+      <span class="base-note">гипотеза по объёмам категорий · для прямого ответа нужен co-mention анализ (data-трек)</span>
+    </div>
+    <div class="body-grid">
+      <div>
+        <div class="viz-title">До / вместо пересадки · топ альтернатив</div>
+        <div class="bar-row"><span class="lbl">PRP-терапия</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">79</span></div>
+        <div class="bar-row"><span class="lbl">Миноксидил</span><div class="track"><div class="fill" style="width:90%"></div></div><span class="val">71</span></div>
+        <div class="bar-row"><span class="lbl">Мезотерапия</span><div class="track"><div class="fill" style="width:67%"></div></div><span class="val">53</span></div>
+        <div class="bar-row"><span class="lbl">Финастерид</span><div class="track"><div class="fill" style="width:48%"></div></div><span class="val">38</span></div>
+        <div class="bar-row"><span class="lbl">Лазерная терапия</span><div class="track"><div class="fill" style="width:33%"></div></div><span class="val">26</span></div>
+      </div>
+      <div>
+        <div class="viz-title">После пересадки · рутина ухода</div>
+        <div class="bar-row"><span class="lbl">Поддерж. терапия</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">93</span></div>
+        <div class="bar-row"><span class="lbl">Миноксидил-терапия</span><div class="track"><div class="fill" style="width:67%"></div></div><span class="val">62</span></div>
+        <div class="bar-row"><span class="lbl">Сыворотки</span><div class="track"><div class="fill" style="width:67%"></div></div><span class="val">62</span></div>
+        <div class="bar-row"><span class="lbl">Плазмотерапия</span><div class="track"><div class="fill" style="width:52%"></div></div><span class="val">48</span></div>
+        <div class="bar-row"><span class="lbl">Шампуни</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="val">35</span></div>
+      </div>
+    </div>
+    <div class="implication"><b>Что это значит для вас:</b> пациент после пересадки — постоянный
+    клиент на уход (миноксидил, PRP, сыворотки). Продуктовая линейка и ретеншн-программы «после
+    процедуры» — прямой источник выручки, который обсуждения уже подтверждают.</div>
+    <button class="evi-toggle" data-evi="evi3">Показать доказательства →</button>
+    <div class="evidence" id="evi3">
+      <div class="msg" data-t="user">
+        <div class="meta"><span class="mtag user">Пользователь</span><span>Форум · март 2026</span><span class="demo-mark">иллюстративный пример (реальный паттерн: миноксидил в 3 ролях таксономии)</span></div>
+        Рік після пересадки + міноксидил щодня, раз на квартал PRP. Лікар сказав — це тепер моя рутина назавжди.
+      </div>
+      <div class="evi-note">В продакшене: сеть совместных упоминаний «пересадка × средство» (co-occurrence) — в скольких сообщениях процедура соседствует с каждым методом ухода; категоризация Replacement / Complement / Before / After.</div>
+    </div>
+  </div>
+
+  <!-- ═══════ Вопрос 4 ═══════ -->
+  <div class="card">
+    <div class="q-row">
+      <span class="num">ВОПРОС 4</span>
+      <span class="q-ua">«Процедуру роблять в Україні чи шукають де зробити закордоном? Якщо в Україні — чи є згадки де роблять?»</span>
+    </div>
+    <h3>Украина или зарубеж — и кто лидирует внутри страны?</h3>
+    <p class="verdict"><b>Внутри Украины конкуренция видна отчётливо</b> — 35 клиник в мониторинге,
+    явный лидер по доле голоса Hair Globalmedik (127 упоминаний). <b>А вот сравнить Украину с
+    зарубежьем текущие данные не позволяют:</b> зарубежные направления (Турция и др.) в таксономии
+    не отслеживаются — вопрос требует отдельной модели гео-намерения.</p>
+    <div class="conf-row">
+      <span class="badge high">Confidence · High — по украинским клиникам</span>
+      <span class="badge low">Insufficient — по «Украина vs зарубеж»</span>
+    </div>
+    <div class="body-grid">
+      <div>
+        <div class="viz-title">Share of Voice · топ клиник Украины · 629 упоминаний топ-10</div>
+        <div class="bar-row"><span class="lbl">Hair Globalmedik</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">127</span></div>
+        <div class="bar-row"><span class="lbl">HairMed</span><div class="track"><div class="fill" style="width:86%"></div></div><span class="val">109</span></div>
+        <div class="bar-row"><span class="lbl">SmartCare Medical</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="val">81</span></div>
+        <div class="bar-row"><span class="lbl">MHT Clinics</span><div class="track"><div class="fill" style="width:57%"></div></div><span class="val">73</span></div>
+        <div class="bar-row"><span class="lbl">HappyNewHair</span><div class="track"><div class="fill" style="width:39%"></div></div><span class="val">50</span></div>
+        <div class="bar-row"><span class="lbl">LaserOne Clinic</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="val">48</span></div>
+      </div>
+      <div>
+        <div class="viz-title">Что нужно, чтобы ответить полностью</div>
+        <div class="insufficient" style="margin-top:0">
+          <b>Гео-намерение не отслеживается:</b> в текущей таксономии только украинские центры.
+          Для ответа «Украина vs зарубеж» нужна модель location intent: Ukraine / Abroad /
+          Undecided / Already done + страна назначения + причины выбора (цена · доверие ·
+          безопасность · логистика). Это data-трек, слот под него в этом экране уже есть.
+        </div>
+        <p style="font-size:12.5px; color:var(--muted); margin-top:10px">Важно: доля голоса ≠
+        качество. Лидер может быть громким за счёт собственного промо — разделение «органика vs
+        контент клиники» тоже приходит с data-треком.</p>
+      </div>
+    </div>
+    <div class="implication"><b>Что это значит для вас:</b> внутриукраинская карта конкурентов
+    уже рабочая — можно мониторить долю голоса и тональность по каждой клинике. Вопрос про отток
+    за границу — главный кандидат на следующую итерацию исследования.</div>
+    <button class="evi-toggle" data-evi="evi4">Показать доказательства →</button>
+    <div class="evidence" id="evi4">
+      <div class="msg" data-t="user">
+        <div class="meta"><span class="mtag user">Пользователь</span><span>Telegram · май 2026</span><span class="demo-mark">иллюстративный пример</span></div>
+        Порівнював Київ і Стамбул: у Туреччині дешевше, але переліт, мова, і якщо щось піде не так — куди бігти? Схиляюсь робити вдома.
+      </div>
+      <div class="evi-note">В продакшене: клик по клинике → её сообщения с разбивкой органика/промо и ±сентиментом; такие сообщения про «Київ vs Стамбул» и станут базой location intent.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <span>Концепт: студия · 20.07.2026</span>
+  <a href="../analytics/">← Аудит, из которого вырос концепт</a>
+  <a href="../report/SF-Dashboard-UX-Audit-2026-07-20.pdf" target="_blank" rel="noopener">PDF-отчёт</a>
+</div>
+
+<script>
+  document.querySelectorAll('.evi-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const evi = document.getElementById(btn.dataset.evi);
+      const open = evi.classList.toggle('open');
+      btn.textContent = open ? 'Скрыть доказательства ↑' : btn.dataset.label || 'Показать доказательства →';
+      if (!btn.dataset.label) btn.dataset.label = 'Показать доказательства →';
+    });
+  });
+  document.querySelectorAll('.chips').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+        chip.classList.add('on');
+        const f = chip.dataset.f;
+        const evi = group.closest('.evidence');
+        evi.querySelectorAll('.msg').forEach(m => {
+          m.style.display = (f === 'all' || m.dataset.t === f) ? '' : 'none';
+        });
+      });
+    });
+  });
+</script>
+<script defer src="https://chife-mod.github.io/sfg-dashboard/base/service-menu.js"></script>
+</body>
+</html>

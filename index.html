@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SF Dashboard Analytics — Preview Dashboard</title>
+
+<!-- Favicon: studio-blue square + brand initial. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23116490'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='42' fill='white'%3EA%3C/text%3E%3C/svg%3E">
+
+<!-- ════════════════════════════════════════════════════════════════
+     Vsevolod shared dashboard base — thin shell, PREVIEW_CONFIG only.
+     ════════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://chife-mod.github.io/sfg-dashboard/base/launcher.css">
+<link rel="stylesheet" href="https://chife-mod.github.io/sfg-dashboard/base/service-menu.css">
+</head>
+<body>
+
+<script>
+  window.PREVIEW_CONFIG = {
+    project: "SF Dashboard Analytics",
+    title:   "SF Dashboard Analytics · UX/UI-аудит",
+
+    previews: [
+      { tag: "Активно · Аудит", title: "Analytics",
+        desc: "Консолидированный UX/UI-аудит дашборда «Hair Transplantation»: приоритеты, quick wins, Answers-first.",
+        href: "analytics/" },
+      { tag: "Концепт · Стадия 04", title: "Answers-first концепт",
+        desc: "Кликабельный прототип первого экрана «Ответы»: вердикты, confidence, доказательства.",
+        href: "answers/" }
+    ],
+
+    docs: [
+      { label: "PDF-отчёт аудита", sub: "Консолидация · 15 стр. со скриншотами", icon: "doc",
+        href: "report/SF-Dashboard-UX-Audit-2026-07-20.pdf", external: true },
+      { label: "Исходник — скриншоты дашборда", sub: "Dashboard Analysis.pdf · 6 экранов", icon: "doc",
+        href: "Dashboard Analysis.pdf", external: true },
+      { label: "Синтез консилиума", sub: "Tier 1/2/3 · 99-final-orchestrated.md", icon: "chat",
+        href: "https://chife-mod.github.io/sfg-dashboard/base/viewer.html?file=/sf-ui-dashboard-analytics/consilium/sessions/2026-07-20-sf-dashboard-ux-audit/99-final-orchestrated.md&home=/sf-ui-dashboard-analytics/" }
+    ],
+
+    stages: [
+      { name: "Аудит (Claude × GPT-5 × Gemini)", status: "done",    progress: 100, label: "Done" },
+      { name: "Консолидация + PDF",              status: "done",    progress: 100, label: "Done" },
+      { name: "Мнение Олега → финал",            status: "done",    progress: 100, label: "Done" },
+      { name: "Answers-first концепт",           status: "done",    progress: 100, label: "Done" },
+      { name: "Редизайн дашборда SF",            status: "pending", progress: 0,   label: "Pending" }
+    ],
+
+    meta: [
+      { dt: "Клиент", dd: "Всеволод · Semantic Force / SF Group" },
+      { dt: "Консилиум", dd: "Claude (Fable 5) × GPT-5 Thinking × Gemini Pro + Олег" },
+      { dt: "Исходник", dd: "Дашборд «Hair Transplantation» · Jul 2025 – Jul 2026" }
+    ],
+
+    versions: [
+      { id: "answers",   label: "SF DASH ANALYTICS · Answers-first", desc: "Концепт первого экрана", path: "answers/" },
+      { id: "analytics", label: "SF DASH ANALYTICS · Analytics",     desc: "UX/UI-аудит дашборда",   path: "analytics/" },
+      { id: "launcher",  label: "SF DASH ANALYTICS · Dashboard",     desc: "Main launcher",           path: "" }
+    ]
+  };
+</script>
+
+<script defer src="https://chife-mod.github.io/sfg-dashboard/base/launcher.js"></script>
+<script defer src="https://chife-mod.github.io/sfg-dashboard/base/service-menu.js"></script>
+</body>
+</html>

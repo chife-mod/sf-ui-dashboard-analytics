@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Semantic Force · UX/UI-аудит дашборда — консолидированный отчёт</title>
+<style>
+  :root {
+    --ink: #16212b;
+    --muted: #5b6b7a;
+    --accent: #116490;
+    --accent-soft: #e8f1f7;
+    --line: #d8e0e7;
+    --p0: #b3261e;
+    --p1: #b06000;
+    --p2: #3c6b40;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+  @page { size: A4; margin: 16mm 15mm 18mm; }
+  .page-break { break-after: page; }
+  .avoid-break { break-inside: avoid; }
+
+  h1 { font-size: 26pt; line-height: 1.15; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 15pt; letter-spacing: -0.01em; margin: 0 0 10pt;
+    padding-bottom: 6pt; border-bottom: 2px solid var(--accent);
+  }
+  h3 { font-size: 11.5pt; margin: 14pt 0 5pt; }
+  h4 { font-size: 10.5pt; margin: 10pt 0 3pt; }
+  p { margin: 0 0 7pt; }
+  ul, ol { margin: 0 0 8pt 16pt; }
+  li { margin-bottom: 3.5pt; }
+  strong { font-weight: 650; }
+  .muted { color: var(--muted); }
+  .small { font-size: 9pt; }
+
+  .eyebrow {
+    font-size: 8.5pt; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin-bottom: 6pt;
+  }
+  .section { margin-top: 14pt; }
+
+  /* Cover */
+  .cover { display: flex; flex-direction: column; height: 250mm; }
+  .cover .title-block { margin-top: 42mm; }
+  .cover h1 span { color: var(--accent); }
+  .cover .sub { font-size: 12.5pt; color: var(--muted); margin-top: 8pt; max-width: 150mm; }
+  .cover .meta-grid {
+    margin-top: auto; border-top: 1px solid var(--line); padding-top: 8pt;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6pt 20pt; font-size: 9.5pt;
+  }
+  .cover .meta-grid dt { color: var(--muted); font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.08em; }
+  .cover .meta-grid dd { font-weight: 600; }
+
+  /* Verdict callout */
+  .callout {
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+    padding: 9pt 12pt; border-radius: 0 6pt 6pt 0; margin: 0 0 10pt;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* Priority table */
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin-bottom: 10pt; }
+  th, td { text-align: left; padding: 5pt 7pt; vertical-align: top; border-bottom: 1px solid var(--line); }
+  th { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 1.5px solid var(--ink); }
+  .tag { display: inline-block; font-size: 8pt; font-weight: 700; padding: 1pt 6pt; border-radius: 8pt; color: #fff; }
+  .tag.p0 { background: var(--p0); }
+  .tag.p1 { background: var(--p1); }
+  .tag.p2 { background: var(--p2); }
+  .who { font-size: 8pt; color: var(--muted); white-space: nowrap; }
+
+  /* Screenshots */
+  figure { margin: 8pt 0 12pt; }
+  figure img {
+    display: block; max-width: 100%; max-height: 165mm; margin: 0 auto;
+    border: 1px solid var(--line); border-radius: 4pt;
+  }
+  figure.tall img { max-height: 195mm; }
+  figcaption { font-size: 8.5pt; color: var(--muted); margin-top: 4pt; text-align: center; }
+  .shot-note { background: #fff8e8; border-left: 3px solid var(--p1); padding: 6pt 10pt; font-size: 9.5pt; margin-bottom: 8pt; border-radius: 0 4pt 4pt 0; }
+
+  /* Objectives */
+  .obj { border: 1px solid var(--line); border-radius: 6pt; padding: 9pt 11pt; margin-bottom: 8pt; }
+  .obj .q { font-weight: 650; margin-bottom: 4pt; }
+  .obj .status { font-size: 8.5pt; font-weight: 700; padding: 1pt 7pt; border-radius: 8pt; display: inline-block; margin-bottom: 5pt; }
+  .status.no { background: #fdecea; color: var(--p0); }
+  .status.half { background: #fff4e0; color: var(--p1); }
+
+  /* Opinions */
+  .opinion { border: 1px solid var(--line); border-radius: 6pt; padding: 10pt 12pt; margin-bottom: 10pt; }
+  .opinion .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6pt; border-bottom: 1px solid var(--line); padding-bottom: 5pt; }
+  .opinion .model { font-weight: 700; font-size: 11pt; }
+  .opinion .role { font-size: 8.5pt; color: var(--muted); }
+  .opinion.placeholder { border-style: dashed; background: #fafbfc; }
+
+  .footer-note { font-size: 8.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6pt; margin-top: 14pt; }
+  code { font-family: "SF Mono", Menlo, monospace; font-size: 8.5pt; background: #f0f3f5; padding: 0.5pt 3pt; border-radius: 3pt; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="cover page-break">
+  <div class="eyebrow">Semantic Force · SF Group · Конфиденциально</div>
+  <div class="title-block">
+    <h1>Дашборд «Hair Transplantation»<br><span>UX/UI-аудит и план переосмысления</span></h1>
+    <p class="sub">Консолидированный анализ понятности и полезности клиентского дашборда:
+    приоритизированные проблемы, ответы на вопросы заказчика исследования, quick wins
+    и флагманская концепция Answers-first.</p>
+  </div>
+  <dl class="meta-grid">
+    <div><dt>Дата</dt><dd>20 июля 2026</dd></div>
+    <div><dt>Для</dt><dd>Всеволод · Semantic Force</dd></div>
+    <div><dt>Консилиум</dt><dd>Claude (Fable 5) × GPT-5 Thinking × Gemini Pro × Олег</dd></div>
+    <div><dt>Исходник</dt><dd>Dashboard Analysis.pdf — 6 экранов, топик «Hair Transplantation», окно Jul 2025 – Jul 2026</dd></div>
+  </dl>
+</div>
+
+<!-- ═══════════════ 1. РЕЗЮМЕ ═══════════════ -->
+<div class="page-break">
+  <div class="eyebrow">01 · Резюме</div>
+  <h2>Главный вывод: дашборд показывает данные, а не ответы</h2>
+
+  <div class="callout">
+    <p><strong>Клиент сформулировал четыре исследовательских вопроса — они дословно записаны
+    в табе Objectives самого дашборда, — но ни один экран системы прямо на них не отвечает.</strong>
+    Ответы приходится вручную собирать из двенадцати top-N таблиц и двух графиков. Четыре из
+    шести табов — статические глоссарии без единой цифры. Продукт организован вокруг сущностей
+    платформы (Messages, Sources, Communities), а не вокруг решений клиента.</p>
+  </div>
+
+  <p>При этом фактура данных сильная: 183 источника, 1 839 сообщений, 961 автор, 17,1 млн
+  просмотров, кастомная таксономия под тему, drill-down из любого числа, перевод и подсветка
+  терминов в ленте сообщений. Проблема не в данных — <strong>ценность спрятана за интерфейсом
+  администратора системы</strong>, тогда как покупатель — маркетолог или владелец клиники.</p>
+
+  <h3>Три вывода, на которых сошлись все участники консилиума</h3>
+  <ol>
+    <li><strong>Answers-first.</strong> Таб Objectives перевернуть из тупика в первый экран:
+    по каждому вопросу — вердикт человеческим языком, 2–3 цифры, одна решающая визуализация
+    и кликабельные доказательства. Все три модели независимо предложили одну и ту же
+    флагманскую идею.</li>
+    <li><strong>Табы-глоссарии — главный провал.</strong> Alternatives, Centers, Postprocedures,
+    Care products — словари с определениями вместо аналитики, при том что объёмы упоминаний
+    уже есть в системе. Превратить в рейтинги (объём, тренд, сентимент) или честно понизить
+    до справочника.</li>
+    <li><strong>Честность данных.</strong> Пол определён в 7,7 % сообщений, возраст — в 2 %,
+    сентимент скрывает ~57 % нейтрали — но всё подано как уверенные круговые диаграммы.
+    Каждому виджету — база (n=), покрытие, категория Unknown; малым выборкам — предупреждение,
+    а не диаграмма.</li>
+  </ol>
+
+  <h3>Отдельная методологическая находка (GPT-5)</h3>
+  <p>Метрика Messages смешивает <strong>потребительский спрос с контентом самих клиник и рекламой</strong>:
+  топ-авторы — клиники, показанный пример сообщения — рекламная акция. Рост объёма может быть
+  «нарисован» активностью клиник, и тогда все выводы о спросе методологически шатки. Лечится
+  классификацией автора/намерения (пациент · клиника · медиа · реклама) — это отдельный
+  data/ML-трек, не UI.</p>
+
+  <div class="footer-note">Полные тексты трёх независимых аудитов — в приложении (раздел 07)
+  и в артефактах консилиум-сессии <code>consilium/sessions/2026-07-20-sf-dashboard-ux-audit/</code>.</div>
+</div>
+
+<!-- ═══════════════ 2. ПРИОРИТЕТЫ ═══════════════ -->
+<div class="page-break">
+  <div class="eyebrow">02 · Приоритеты</div>
+  <h2>Проблемы по приоритетам</h2>
+  <p class="small muted" style="margin-bottom:8pt">P0 — переосмыслить концептуально · P1 — серьёзно улучшить · P2 — полировка. Колонка «кто» — участники, независимо указавшие на проблему (C = Claude, G = GPT-5, M = Gemini, O = Олег).</p>
+
+  <table>
+    <tr><th style="width:9mm">Prio</th><th>Проблема</th><th>Что делать</th><th style="width:13mm">Кто</th></tr>
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td><strong>Objectives — тупиковый таб:</strong> вопросы клиента записаны, но без ответов, ссылок и статуса.</td>
+      <td>Answers-first: первый экран с вердиктами по 4 вопросам, цифрами, доказательствами (LLM-синтез из данных).</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td><strong>Табы-глоссарии без данных:</strong> 4 из 6 табов — алфавитные словари; лидер упоминаний закопан в середину списка.</td>
+      <td>Аналитические рейтинги: Volume, тренд, сентимент, доля, переход к сообщениям; определение — по клику. Либо понизить до Reference.</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td><strong>Нечестные малые выборки:</strong> Age n=36 (2 %), Gender n=141 (7,7 %), сентимент без ~57 % нейтрали — уверенные pie-чарты.</td>
+      <td>Подписывать n= и % покрытия, Unknown-категория, confidence-метки; pie → стекед-бары; «Insufficient data» при малой базе.</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td><strong>Спрос смешан с рекламой клиник:</strong> в Messages — пациенты, клиники, СМИ и промо одной метрикой.</td>
+      <td>Data-трек: классификация автора и намерения; KPI «Consumer discussions» и «High-intent requests»; контент клиник — отдельным слоем.</td>
+      <td class="who">G</td>
+    </tr>
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td><strong>AI-артефакты в клиентском контенте:</strong> «3D Hair Printing дома», «Elbrus herb», побуквенные дубли описаний, грамматические ошибки.</td>
+      <td>Контент-QA таксономии и описаний (LLM-валидация + редактор); происхождение описаний («Generated summary», N упоминаний); мед. дисклеймер.</td>
+      <td class="who">C·G</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>KPI без контекста и иерархии:</strong> 8 равновесных плиток, инвентарь (10 Media Types) вровень с перформансом (17,1 млн Views); метрики не определены.</td>
+      <td>3–4 клиентских KPI с Δ% к сопоставимому периоду и спарклайнами; тултипы-методики Views/Coverage/Engagement; инвентарь — в Data Quality.</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Годовой график дневной гранулярности:</strong> шум, нечитаемые оси, необъяснённые пики.</td>
+      <td>Недельная/месячная агрегация по умолчанию, сравнение с прошлым периодом, аннотации пиков, moving average.</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Админ-интерфейс в клиентском вью:</strong> сайдбар с Trash и Topic Settings, двойная навигация, внутренние ID («[HT] [249075]»), чужой дашборд в меню.</td>
+      <td>Client View / Presentation mode: только табы исследования + компактный фильтр-бар; админ-инструменты за ролью.</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Нет пути «вывод → доказательство»:</strong> графики и таблицы оторваны от ленты сообщений.</td>
+      <td>Evidence drawer: клик по любому сегменту/строке открывает выборку сообщений с фильтрами и кнопкой «ошибка классификации».</td>
+      <td class="who">G (+C)</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Языковой микс:</strong> EN-интерфейс, UA-вопросы, смешанные источники.</td>
+      <td>Единая локаль клиентского слоя (UA для этого клиента), переключатель; оригинал сообщения — в drawer.</td>
+      <td class="who">C·G</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Лента сообщений — простыня с глобальным фильтром:</strong> любой клик перестраивает весь дашборд; локально ленту не отфильтровать («взять и резко отсортировать негатив»).</td>
+      <td>Локальные фильтры ленты (продукт · тип · сентимент) без перестройки остального; глобальный фильтр — отдельным явным действием.</td>
+      <td class="who">O (+G)</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Доверие к интерактиву — баги:</strong> свёрнутые Messages не развернуть (разворачивалку перекрывает кнопка AI-копайлота); фильтр по Hair Globalmedik оставляет в таблице SmartCare Medical без объяснения (co-tagging выглядит поломкой).</td>
+      <td>Починить z-index/позицию копайлота; у co-tagged результатов — явная подпись «сообщения с обеими метками» или счётчик пересечения.</td>
+      <td class="who">O</td>
+    </tr>
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td><strong>Пересекающаяся таксономия:</strong> Peptide Booster в двух табах, Minoxidil в трёх ролях, PRP ≈ Plasmotherapy.</td>
+      <td>Онтология по этапам customer journey; тип сущности отдельно от этапа пути.</td>
+      <td class="who">G (+C)</td>
+    </tr>
+    <tr>
+      <td><span class="tag p2">P2</span></td>
+      <td><strong>Неоновый glow-стиль:</strong> светящаяся рамка у каждого блока — всё одинаково «важно», утомляет, выглядит датировано.</td>
+      <td>Акцент только для selected state и ключевых данных; карточки — фоном и типографикой; светлая тема для экспорта.</td>
+      <td class="who">C·G·M</td>
+    </tr>
+    <tr>
+      <td><span class="tag p2">P2</span></td>
+      <td><strong>Слабые визуализации списков:</strong> 8 однотипных таблиц «имя-объём», pie для двух категорий.</td>
+      <td>Bar gauges в ячейках (объём относительно лидера), стекед-бары вместо pie, «Показать все 22 →» вместо «[10 of 22]».</td>
+      <td class="who">M (+C)</td>
+    </tr>
+    <tr>
+      <td><span class="tag p2">P2</span></td>
+      <td><strong>Микрокопирайт и подписи:</strong> «Age in Text [5 of 5]», «Volume» без объекта, «Динамика» без периода, оси без годов на двухлетнем окне, одинаковые глобусы-иконки, мелкие серые подписи, смысл только цветом.</td>
+      <td>Клиентские формулировки («Volume» → «Messages»), заголовки виджетов «объект · период», годы на осях и ховерах, иконки медиатипов, крупнее кегль, контраст, паттерны в дополнение к цвету.</td>
+      <td class="who">G·O (+C)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══════════════ 3. ПОСТРАНИЧНЫЙ РАЗБОР ═══════════════ -->
+<div class="page-break">
+  <div class="eyebrow">03 · Постраничный разбор</div>
+  <h2>Экран 1 — Overview</h2>
+  <div class="shot-note"><strong>Проблемы экрана:</strong> 8 равновесных KPI без дельт и определений · годовой график дневной гранулярности с необъяснёнными пиками · sentiment-pie без 57 % нейтрали · Gender/Age по 2–8 % выборки как полноценные диаграммы · 12 однотипных таблиц без иерархии · лента сообщений в самом низу · админ-сайдбар и зависший тултип «GLP-1 Product» (QA-баг).</div>
+  <figure class="tall avoid-break">
+    <img src="../assets/screens/web-page-1.png" alt="Overview">
+    <figcaption>Экран 1 · Overview: KPI-стена, Dynamics, Sentiment, 12 top-N таблиц, лента сообщений</figcaption>
+  </figure>
+</div>
+
+<div class="page-break">
+  <div class="eyebrow">03 · Постраничный разбор</div>
+  <h2>Экраны 2–5 — табы-глоссарии</h2>
+  <div class="shot-note"><strong>Общий паттерн:</strong> полноэкранные алфавитные списки «термин + определение» в светящихся рамках. Ни объёмов, ни трендов, ни сентимента, ни ссылок на сообщения — хотя цифры есть в таблицах Overview. Дубли описаний (Serum/Spray/Lotion — один текст), сущности в двух табах одновременно (Peptide Booster), артефакты AI-генерации («3D Hair Printing» как домашнее решение, «Elbrus herb») и промо-формулировки без атрибуции («first FDA-approved», «painless»).</div>
+  <figure class="avoid-break">
+    <img src="../assets/screens/web-page-2.png" alt="Alternatives tab">
+    <figcaption>Экран 2 · Hair Transplantation Alternatives — 22 термина алфавитом, без данных</figcaption>
+  </figure>
+</div>
+
+<div class="page-break">
+  <div class="eyebrow">03 · Постраничный разбор</div>
+  <figure class="avoid-break">
+    <img src="../assets/screens/web-page-3.png" alt="Centers tab">
+    <figcaption>Экран 3 · Centers — 35 клиник алфавитом; лидер по упоминаниям (Hair Globalmedik, 127) не виден. Список без критерия сортировки читается как рекомендация платформы</figcaption>
+  </figure>
+  <figure class="avoid-break">
+    <img src="../assets/screens/web-page-4.png" alt="Postprocedures tab">
+    <figcaption>Экран 4 · Postprocedures — медицинские утверждения («painless», «innovative») без происхождения и дисклеймера</figcaption>
+  </figure>
+</div>
+
+<div class="page-break">
+  <div class="eyebrow">03 · Постраничный разбор</div>
+  <figure class="avoid-break">
+    <img src="../assets/screens/web-page-5.png" alt="Care products tab">
+    <figcaption>Экран 5 · Care products — Serum, Spray и Lotion с побуквенно одинаковыми описаниями; «a scalp care products»; Peptide Booster дублирует экран 4</figcaption>
+  </figure>
+</div>
+
+<div class="page-break">
+  <div class="eyebrow">03 · Постраничный разбор</div>
+  <h2>Экран 6 — Objectives: ключ ко всему редизайну</h2>
+  <div class="shot-note"><strong>Четыре вопроса, ради которых клиент платит,</strong> отрендерены как статические текстовые боксы — без ответов, без ссылок на данные, без статуса. Это одновременно и главный провал текущей версии, и готовый фундамент флагманской идеи: Answers-first (раздел 06).</div>
+  <figure class="avoid-break">
+    <img src="../assets/screens/web-page-6.png" alt="Objectives tab">
+    <figcaption>Экран 6 · Objectives — вопросы клиента (укр.): потенциал темы · динамика и аудитория спроса · заменяет ли пересадка продукты · Украина vs зарубеж</figcaption>
+  </figure>
+</div>
+
+<!-- ═══════════════ 4. OBJECTIVES ═══════════════ -->
+<div class="page-break">
+  <div class="eyebrow">04 · Вопросы клиента</div>
+  <h2>Отвечает ли дашборд на четыре вопроса из Objectives?</h2>
+
+  <div class="obj avoid-break">
+    <div class="q">Задача 1 · Оценить количество и характер запросов — потенциал и актуальность трансплантации</div>
+    <span class="status half">Отвечает частично (~25 %)</span>
+    <p><strong>Сейчас:</strong> объём (1 839) и динамика есть, но «характер» не раскрыт: не видно, сколько сообщений — реальные вопросы пациентов, сколько — реклама. Объём ≠ потенциал.</p>
+    <p><strong>Целевой экран:</strong> хедлайн-вердикт («потребительский интерес: высокий/умеренный/низкий, X уникальных обсуждений, Y % high-intent») + структура запросов (цена · метод · риски · клиника · восстановление · зарубеж) treemap-ом + динамика consumer/provider + 5 характерных сообщений.</p>
+  </div>
+
+  <div class="obj avoid-break">
+    <div class="q">Задача 2 · Растёт ли спрос; мужчины/женщины, моложе/старше; отношение к процедуре</div>
+    <span class="status no">Практически не отвечает</span>
+    <p><strong>Сейчас:</strong> дневная линия за год не доказывает рост; Gender (n=141) и Age (n=36) нерепрезентативны и поданы без caveat; сентимент не измеряет отношение именно к процедуре.</p>
+    <p><strong>Целевой экран:</strong> вердикт «спрос вырос/снизился на X %» с сопоставимым периодом · демография только с базой, Unknown и confidence · шкала отношения (рассматривает · доверяет · сомневается · боится · уже сделал) · драйверы и барьеры.</p>
+  </div>
+
+  <div class="obj avoid-break">
+    <div class="q">Задача 3 · Заменяет ли трансплантация косметические/лечебные продукты; какая рутина</div>
+    <span class="status no">Не отвечает</span>
+    <p><strong>Сейчас:</strong> альтернативы и продукты — отдельные словари без единой связи с решением о пересадке.</p>
+    <p><strong>Целевой экран:</strong> co-mention анализ (пересадка × minoxidil/PRP/уход — сеть совместных упоминаний или диаграмма Венна) · категоризация Replacement / Complement / Before / After · маршрут пациента с популярными последовательностями рутин · цитаты-доказательства.</p>
+  </div>
+
+  <div class="obj avoid-break">
+    <div class="q">Задача 4 · Делают в Украине или ищут за границей? Если в Украине — где именно</div>
+    <span class="status no">Не отвечает</span>
+    <p><strong>Сейчас:</strong> таб Centers перечисляет украинские клиники алфавитом; гео-разрез спрятан в сайдбаре и на Overview не выведен.</p>
+    <p><strong>Целевой экран:</strong> сплит Ukraine / Abroad / Undecided / Already done · карта или flow «Украина → страны» · Share of Voice клиник с ±сентиментом (данные уже есть: Hair Globalmedik 127 · HairMed 109 · SmartCare 81) · причины выбора (цена · доверие · безопасность · логистика).</p>
+  </div>
+</div>
+
+<!-- ═══════════════ 5. QUICK WINS ═══════════════ -->
+<div class="page-break">
+  <div class="eyebrow">05 · Quick wins</div>
+  <h2>Что чинится за 1–2 недели (1 дизайнер + 1 фронтендер)</h2>
+  <ol>
+    <li><strong>Objectives → первый таб «Answers»</strong>: четыре карточки-вопроса с коротким текущим выводом и ссылкой на разрез (пока вручную написанным — LLM-автоматизация потом).</li>
+    <li><strong>KPI-ряд:</strong> оставить 4 клиентских метрики, добавить Δ% к прошлому периоду; инвентарные счётчики — вниз, в Data Quality.</li>
+    <li><strong>График:</strong> недельная агрегация по умолчанию на окнах >90 дней, нормальные подписи осей, аннотации топ-3 пиков.</li>
+    <li><strong>Сентимент и демография:</strong> нейтраль в сентимент, подписи «n= из 1 839 (…% покрытия)», pie → стекед-бары.</li>
+    <li><strong>Глоссарий-табы:</strong> колонка Volume из данных Overview + сортировка по ней; пометка «Справочник» до полноценного редизайна.</li>
+    <li><strong>Тултипы-определения</strong> Coverage / Views / Engagement.</li>
+    <li><strong>Client View:</strong> скрыть Trash, Topic Settings, внутренние ID; свернуть сайдбар по умолчанию.</li>
+    <li><strong>Контент-хотфикс:</strong> дедуп описаний (Serum/Spray/Lotion), выпилить артефакты типа «3D Hair Printing», редактура EN-текстов, шильдик «Generated summary».</li>
+    <li><strong>Один язык клиентского слоя</strong> (UA для этого клиента).</li>
+    <li><strong>Визуальная чистка:</strong> убрать неоновые рамки со всех текстовых блоков, короче строки, единые отступы; починить зависший тултип «GLP-1 Product».</li>
+    <li><strong>Годы и заголовки:</strong> год на осях и ховерах всех временных графиков (окно пересекает два года); заголовки виджетов с объектом и периодом («Динамика сообщений · 12 мес»); «Volume» → «Messages».</li>
+    <li><strong>Баг-фиксы интерактива:</strong> развернуть свёрнутые Messages (кнопка AI-копайлота перекрывает разворачивалку); объяснение co-tagged строк при фильтрации по сущности.</li>
+    <li><strong>Локальные фильтры ленты сообщений</strong> (сентимент/тип/продукт) без перестройки всего дашборда — минимальная версия: фильтр-чипы над лентой.</li>
+  </ol>
+  <p class="small muted"><strong>Не quick wins</strong> (отдельный data/ML-трек): надёжное отделение потребителей от клиник, intent-классификация, aspect-based сентимент, гео-намерение, реконструкция рутины. Это доработка классификации, а не UI.</p>
+</div>
+
+<!-- ═══════════════ 6. ФЛАГМАН ═══════════════ -->
+<div>
+  <div class="eyebrow">06 · Флагманская идея</div>
+  <h2>Answers-first: дашборд, который начинает с ответов</h2>
+
+  <div class="callout">
+    <p><strong>Все три модели независимо предложили одно и то же.</strong> Первый экран продукта —
+    четыре блока по вопросам клиента. В каждом: вердикт одним предложением → уровень уверенности
+    (n, % классифицировано) → одна решающая визуализация → три драйвера → реальные
+    сообщения-доказательства → business implication. Вся остальная аналитика — глубина второго клика.</p>
+    <p><strong>Поправка Олега:</strong> компактность текущего обзора — ценность («картину вижу быстро»).
+    Answers-first — слой поверх плотной структуры, а не дробление продукта на четыре отдельных
+    экрана: первый экран отвечает, существующий Overview остаётся глубиной.</p>
+  </div>
+
+  <p><strong>Пример блока</strong> (формат GPT-5): «Органический потребительский спрос вырос на 18 %,
+  но рост общего объёма в основном связан с активностью клиник» · Medium confidence · 312 consumer
+  messages · 68 % classified · график consumer vs provider · драйверы: цена, восстановление,
+  выбор страны · [5 сообщений] · «клинике стоит усиливать контент о стоимости и реальных
+  результатах, а не общий awareness».</p>
+
+  <p><strong>Почему это больше, чем UX-фикс:</strong> Semantic Force уже использует LLM (описания
+  в глоссариях сгенерированы) — ту же LLM направить на синтез выводов с цитатами. Это переупаковка
+  позиционирования всей линейки дочерних решений: <em>из «система с данными» в «сервис, который
+  отвечает на вопросы бизнеса»</em> — и главный дифференциатор в продажах.</p>
+
+  <h3>Два трека внедрения</h3>
+  <table>
+    <tr><th style="width:22mm">Трек</th><th>Состав</th><th style="width:30mm">Ресурс</th></tr>
+    <tr>
+      <td><strong>A · UI</strong></td>
+      <td>Quick wins (раздел 05) → Answers-экран на существующих данных (вердикты пишет аналитик) → редизайн глоссарий-табов в рейтинги → Client View → светлая тема + экспорт Answers в PDF-деку.</td>
+      <td>дизайнер + фронтендер, 4–6 недель суммарно</td>
+    </tr>
+    <tr>
+      <td><strong>B · Data/ML</strong></td>
+      <td>Классификация автора и намерения (consumer vs provider vs ad) → high-intent KPI → гео-намерение (Ukraine/abroad/undecided) → co-mention анализ → LLM-автогенерация вердиктов Answers с доказательствами.</td>
+      <td>data-команда SF, параллельно, не блокирует трек A</td>
+    </tr>
+  </table>
+
+  <p class="small muted">Упущения, добавленные оркестратором поверх трёх мнений: экспорт-флоу
+  (клиент несёт выводы руководству — светлый PDF в один клик), бенчмарк конкурентов
+  (YouScan / Brandwatch / Talkwalker — как у них устроен insights-слой), mobile-читаемость
+  Answers-экрана, onboarding первой сессии.</p>
+</div>
+
+<!-- ═══════════════ 7. МНЕНИЯ ═══════════════ -->
+<div class="page-break">
+  <div class="eyebrow">07 · Мнения участников</div>
+  <h2>Три независимых аудита + мнение Олега</h2>
+  <p class="small muted" style="margin-bottom:8pt">Обе внешние модели получили одинаковый промпт и полный PDF со скриншотами. Ниже — вердикты и уникальные вклады; полные тексты (5,7–22 тыс. знаков) — в артефактах сессии.</p>
+
+  <div class="opinion avoid-break">
+    <div class="head"><span class="model">Claude · Fable 5</span><span class="role">оркестратор консилиума, прямой разбор скриншотов</span></div>
+    <p><strong>Вердикт:</strong> «Дашборд показывает данные, а не ответы. Вопросы клиента записаны в самом продукте — и ни один экран на них не отвечает; большая часть навигации ведёт в справочник, а не в аналитику. Продукт прячет свою главную ценность за интерфейсом администратора».</p>
+    <p><strong>Уникальный вклад:</strong> контент-QA как P0 (артефакты AI-генерации — «3D Hair Printing дома», «Elbrus herb», побуквенные дубли — прямой риск доверия) · зависший тултип и прочие QA-баги · повторы «Hair Transplantation» в табах · список «что уже хорошо и надо сохранить» (фактура источников, highlight, Translate, drill-down, сам факт фиксации Objectives).</p>
+  </div>
+
+  <div class="opinion avoid-break">
+    <div class="head"><span class="model">GPT-5 Thinking</span><span class="role">chatgpt.com · reasoning «Высокий» · PDF приложен</span></div>
+    <p><strong>Вердикт:</strong> «Это не клиентский продукт, а внутренний analyst workspace со справочными вкладками. Интерфейс создаёт ощущение статистической определённости там, где неполные выборки и смешение спроса с рекламой. Продукт организован вокруг сущностей платформы вместо решений клиента».</p>
+    <p><strong>Уникальный вклад:</strong> методология — разделение потребительского спроса и контента клиник/рекламы (главная находка сессии) · происхождение медицинских утверждений и дисклеймеры · онтология таксономии по customer journey · evidence drawer с кнопкой «ошибка классификации» · confidence-статусы (High/Medium/Low/Insufficient) · честный список «что НЕ является quick win».</p>
+  </div>
+
+  <div class="opinion avoid-break">
+    <div class="head"><span class="model">Gemini Pro</span><span class="role">gemini.google.com · PDF приложен</span></div>
+    <p><strong>Вердикт:</strong> «Подмена аналитики сырым экспортом базы и статичными глоссариями: на неподготовленного маркетолога вываливают пульт управления дата-сайентиста. Тяжёлый "хакерский" интерфейс без контекста метрик — клиент сам ищет инсайты среди однообразных таблиц».</p>
+    <p><strong>Уникальный вклад:</strong> конкретный виз-словарь редизайна — Treemap структуры болей/запросов · матрица сентимент × пол × возраст · Co-occurrence network / диаграмма Венна для «пересадка × уход» · тепловая карта гео + Share of Voice клиник с ±сентиментом · bar gauges прямо в ячейках таблиц · сгруппировать Gender/Age/Author Types в блок «Audience Profile».</p>
+  </div>
+
+  <div class="opinion avoid-break">
+    <div class="head"><span class="model">Олег</span><span class="role">арт-директор студии · разбор живого дашборда (не только скриншотов)</span></div>
+    <p><strong>Вердикт:</strong> «Табы дают понятную навигацию, и картину в целом вижу быстро — это хорошо.
+    Но подача однообразная, нет главного и второстепенного. И постоянно не могу понять одно:
+    это хорошо или это плохо? Живая тема или нет? Захожу в "инсайты" — и не знаю, насколько они
+    инсайты. Владелец клиники зашёл — и что?»</p>
+    <p><strong>Уникальный вклад:</strong> два бага интерактива (нераскрываемый collapse Messages —
+    перекрыт кнопкой AI-копайлота; фильтр по клинике, оставляющий чужие строки без объяснения) ·
+    локальные фильтры ленты сообщений вместо глобальной перестройки дашборда · годы на осях и
+    ховерах · заголовки виджетов с объектом и периодом · «Volume» → «Messages» · иконки медиатипов ·
+    Objectives и инсайты не должны выглядеть одинаково.</p>
+    <p><strong>Контрапункт к синтезу:</strong> компактность обзора — ценность («нет разбиения на
+    огромное количество разделов»). Answers-first строить слоем поверх текущей плотной структуры,
+    а не дробить продукт на отдельные answer-экраны. Плотность — фича, беспорядок — баг.</p>
+  </div>
+
+  <div class="footer-note">
+    Методология: консилиум-сессия 2026-07-20 по протоколу Consilium v2 (web-модели по подписке,
+    идентичный промпт, PDF приложен обоим; кросс-раунд пропущен по early-consensus — флагманские
+    идеи трёх голосов совпали дословно). Артефакты: <code>consilium/sessions/2026-07-20-sf-dashboard-ux-audit/</code>
+    — 00-brief · 01-prompt · 02a-claude · 02b-gemini · 02c-gpt · 02d-oleg · 99-final-orchestrated.
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Analytics — UX/UI-аудит дашборда Semantic Force</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23116490'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='42' fill='white'%3EA%3C/text%3E%3C/svg%3E">
+
+<!-- Nav pill from the shared Vsevolod base -->
+<link rel="stylesheet" href="https://chife-mod.github.io/sfg-dashboard/base/service-menu.css">
+<script>
+  window.PREVIEW_PROJECT_NAME = "SF Dashboard Analytics";
+  window.PREVIEW_DEFAULT_VERSION = "analytics";
+  window.PREVIEW_VERSIONS = [
+    { id: "answers",   label: "SF DASH ANALYTICS · Answers-first", desc: "Концепт первого экрана", path: "answers/" },
+    { id: "analytics", label: "SF DASH ANALYTICS · Analytics",     desc: "UX/UI-аудит дашборда",   path: "analytics/" },
+    { id: "launcher",  label: "SF DASH ANALYTICS · Dashboard",     desc: "Main launcher",           path: "" }
+  ];
+</script>
+
+<style>
+  :root {
+    --bg: #0c1116;
+    --panel: #121a22;
+    --panel-2: #17212b;
+    --line: #23303c;
+    --ink: #e8eef3;
+    --muted: #92a3b1;
+    --accent: #3aa0d4;
+    --accent-deep: #116490;
+    --p0: #ff7a70;
+    --p1: #ffb45e;
+    --p2: #7ecb8a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.6;
+    padding: 56px 24px 120px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin-bottom: 14px;
+  }
+  h1 { font-size: 40px; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 14px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); font-size: 17px; max-width: 640px; margin-bottom: 28px; }
+  h2 { font-size: 22px; letter-spacing: -0.01em; margin: 48px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 16px; margin: 20px 0 8px; }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 0 0 14px 20px; }
+  li { margin-bottom: 7px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 13.5px; }
+  a { color: var(--accent); }
+
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 26px 0 8px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px; border-radius: 10px; text-decoration: none;
+    font-weight: 650; font-size: 15px; border: 1px solid transparent;
+    transition: transform .12s ease, background .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--accent-deep); color: #fff; }
+  .btn.primary:hover { background: #1578ab; }
+  .btn.ghost { border-color: var(--line); color: var(--ink); background: var(--panel); }
+  .btn.ghost:hover { background: var(--panel-2); }
+  .btn .ico { font-size: 18px; line-height: 1; }
+
+  .callout {
+    background: var(--panel); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 18px 22px; border-radius: 0 12px 12px 0; margin: 18px 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 14px 0 6px; }
+  th, td { text-align: left; padding: 10px 12px; vertical-align: top; border-bottom: 1px solid var(--line); }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 800; padding: 2px 9px;
+    border-radius: 20px; color: #10151a;
+  }
+  .tag.p0 { background: var(--p0); }
+  .tag.p1 { background: var(--p1); }
+  .tag.p2 { background: var(--p2); }
+
+  .obj { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; }
+  .obj .q { font-weight: 650; margin-bottom: 6px; }
+  .status { font-size: 12px; font-weight: 750; padding: 2px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+  .status.no { background: rgba(255,122,112,.14); color: var(--p0); }
+  .status.half { background: rgba(255,180,94,.14); color: var(--p1); }
+
+  .opinions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .opinions { grid-template-columns: 1fr; } }
+  .op { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 16px 18px; }
+  .op .model { font-weight: 750; margin-bottom: 2px; }
+  .op .role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .op p { font-size: 14px; margin-bottom: 8px; }
+  .op.placeholder { border-style: dashed; background: transparent; }
+  .op a { font-size: 13px; }
+
+  .footer-note {
+    margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--muted);
+  }
+  code { font-family: "SF Mono", Menlo, monospace; font-size: 12.5px; background: var(--panel-2); padding: 1px 6px; border-radius: 5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">SF Dashboard Analytics · Аудит · 20.07.2026</div>
+  <h1>Дашборд «Hair Transplantation»<br><span>UX/UI-аудит и план переосмысления</span></h1>
+  <p class="sub">Консолидированное мнение четырёх участников — Claude (Fable 5), GPT-5 Thinking,
+  Gemini Pro и Олега — о понятности и полезности клиентского дашборда Semantic Force.
+  Полная версия со скриншотами и постраничным разбором — в PDF.</p>
+
+  <div class="cta-row">
+    <a class="btn primary" href="../report/SF-Dashboard-UX-Audit-2026-07-20.pdf" target="_blank" rel="noopener">
+      <span class="ico">⤓</span> Открыть PDF-отчёт (15 стр.)
+    </a>
+    <a class="btn ghost" href="../Dashboard%20Analysis.pdf" target="_blank" rel="noopener">
+      <span class="ico">🖼</span> Исходные скриншоты дашборда
+    </a>
+  </div>
+
+  <h2>Главный вывод</h2>
+  <div class="callout">
+    <p><strong>Дашборд показывает данные, а не ответы.</strong> Четыре вопроса, ради которых клиент
+    платит, дословно записаны в табе Objectives — и ни один экран на них не отвечает. Четыре из
+    шести табов — статические глоссарии без единой цифры. Фактура сильная (183 источника,
+    1 839 сообщений, 17,1 млн просмотров), но ценность спрятана за интерфейсом администратора
+    системы, тогда как покупатель — маркетолог или владелец клиники.</p>
+  </div>
+
+  <h2>Проблемы по приоритетам</h2>
+  <p class="small muted">C = Claude · G = GPT-5 · M = Gemini · O = Олег — кто независимо указал на проблему. Детали и «что делать» — в PDF.</p>
+  <table>
+    <tr><th>Prio</th><th>Проблема</th><th>Кто</th></tr>
+    <tr><td><span class="tag p0">P0</span></td><td>Objectives — тупиковый таб: вопросы записаны, ответов нет → Answers-first</td><td class="small muted">C·G·M</td></tr>
+    <tr><td><span class="tag p0">P0</span></td><td>Табы-глоссарии без данных (4 из 6) → аналитические рейтинги или Reference</td><td class="small muted">C·G·M</td></tr>
+    <tr><td><span class="tag p0">P0</span></td><td>Нечестные малые выборки: Age n=36 (2 %), Gender n=141 (7,7 %), сентимент без ~57 % нейтрали</td><td class="small muted">C·G·M</td></tr>
+    <tr><td><span class="tag p0">P0</span></td><td>Потребительский спрос смешан с контентом клиник и рекламой → data/ML-трек классификации</td><td class="small muted">G</td></tr>
+    <tr><td><span class="tag p0">P0</span></td><td>AI-артефакты в контенте («3D Hair Printing дома», дубли описаний) → контент-QA</td><td class="small muted">C·G</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>KPI без дельт и определений; инвентарь вровень с перформансом</td><td class="small muted">C·G·M</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>Годовой график дневной гранулярности; пики без объяснений</td><td class="small muted">C·G·M</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>Админ-интерфейс в клиентском вью; двойная навигация; внутренние ID → Client View</td><td class="small muted">C·G·M</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>Нет пути «вывод → доказательство» → evidence drawer</td><td class="small muted">G (+C)</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>Языковой микс EN/UA; пересекающаяся таксономия сущностей</td><td class="small muted">C·G</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>Лента сообщений: нужны локальные фильтры (сентимент/тип/продукт) без перестройки всего дашборда</td><td class="small muted">O (+G)</td></tr>
+    <tr><td><span class="tag p1">P1</span></td><td>Баги интерактива: нераскрываемый collapse Messages (перекрыт AI-копайлотом), необъяснённая co-tagged фильтрация</td><td class="small muted">O</td></tr>
+    <tr><td><span class="tag p2">P2</span></td><td>Неоновый glow-стиль; pie-чарты; микрокопирайт («Volume» → «Messages», годы на осях, заголовки с периодом); доступность</td><td class="small muted">C·G·M·O</td></tr>
+  </table>
+
+  <h2>Четыре вопроса клиента — отвечает ли дашборд</h2>
+  <div class="obj">
+    <div class="q">1 · Потенциал и характер запросов</div>
+    <span class="status half">Отвечает частично (~25 %)</span>
+    <p class="small">Объём и динамика есть, «характер» не раскрыт. Целевой экран: вердикт + структура запросов (цена · метод · риски · клиника) + динамика consumer/provider.</p>
+  </div>
+  <div class="obj">
+    <div class="q">2 · Растёт ли спрос; кто аудитория; отношение</div>
+    <span class="status no">Практически не отвечает</span>
+    <p class="small">Демография по 2–8 % выборки без caveat, сентимент не про процедуру. Целевой экран: вердикт роста с сопоставимым периодом + честная демография + шкала отношения.</p>
+  </div>
+  <div class="obj">
+    <div class="q">3 · Заменяет ли пересадка продукты; какая рутина</div>
+    <span class="status no">Не отвечает</span>
+    <p class="small">Сущности в разных табах без связи. Целевой экран: co-mention сеть «пересадка × уход», Replacement/Complement/Before/After, маршрут пациента.</p>
+  </div>
+  <div class="obj">
+    <div class="q">4 · Украина или за границей; где именно</div>
+    <span class="status no">Не отвечает</span>
+    <p class="small">Клиники алфавитом, гео спрятано. Целевой экран: сплит Ukraine/Abroad/Undecided + Share of Voice клиник с ±сентиментом.</p>
+  </div>
+
+  <h2>Флагман: Answers-first</h2>
+  <div class="callout">
+    <p><strong>Все три модели независимо предложили одно и то же.</strong> Первый экран — четыре
+    блока по вопросам клиента: вердикт одним предложением → уверенность (n, % классифицировано) →
+    одна решающая визуализация → доказательства-сообщения → business implication. Смена парадигмы:
+    «вот данные, ищи ответ» → «вот ответ, вот данные».</p>
+    <p class="small muted">Поправка Олега: компактность текущего обзора — ценность, Answers-first —
+    слой поверх плотной структуры, а не дробление на отдельные экраны. Два трека: A — UI (quick wins →
+    Answers-экран → редизайн табов → Client View, 4–6 недель дизайнер+фронт); B — Data/ML
+    (классификация consumer/provider, intent, гео-намерение, LLM-вердикты) — параллельно, не блокирует A.</p>
+  </div>
+
+  <h2>Quick wins (1–2 недели)</h2>
+  <ol class="small">
+    <li>Objectives → первый таб «Answers» с ручными вердиктами</li>
+    <li>4 клиентских KPI с Δ%; инвентарные счётчики — вниз</li>
+    <li>Недельная агрегация графиков + аннотации пиков</li>
+    <li>Нейтраль в сентимент; подписи n= и % покрытия; pie → бары</li>
+    <li>Колонка Volume и сортировка в глоссарий-табах</li>
+    <li>Тултипы-методики Coverage / Views / Engagement</li>
+    <li>Client View: скрыть админ-пункты и внутренние ID</li>
+    <li>Контент-хотфикс описаний + «Generated summary»-шильдик</li>
+    <li>Единая локаль клиентского слоя (UA)</li>
+    <li>Убрать неоновые рамки; починить зависший тултип</li>
+    <li>Годы на осях/ховерах; заголовки «объект · период»; «Volume» → «Messages»</li>
+    <li>Баг-фиксы: collapse Messages vs AI-копайлот; объяснение co-tagged фильтра</li>
+    <li>Фильтр-чипы над лентой сообщений (локально, без перестройки дашборда)</li>
+  </ol>
+
+  <h2>Мнения участников</h2>
+  <div class="opinions">
+    <div class="op">
+      <div class="model">Claude · Fable 5</div>
+      <div class="role">оркестратор · прямой разбор скриншотов</div>
+      <p>«Дашборд показывает данные, а не ответы; большая часть навигации ведёт в справочник, а не в аналитику».</p>
+      <p class="muted small">Уникальное: контент-QA AI-артефактов как P0 · QA-баги · «что сохранить».</p>
+      <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/02a-claude.md" target="_blank" rel="noopener">Полный текст →</a>
+    </div>
+    <div class="op">
+      <div class="model">GPT-5 Thinking</div>
+      <div class="role">chatgpt.com · reasoning «Высокий» · PDF приложен</div>
+      <p>«Не клиентский продукт, а внутренний analyst workspace; ложная статистическая определённость».</p>
+      <p class="muted small">Уникальное: спрос vs реклама клиник · provenance мед. утверждений · journey-онтология · confidence-статусы.</p>
+      <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/02c-gpt.md" target="_blank" rel="noopener">Полный текст →</a>
+    </div>
+    <div class="op">
+      <div class="model">Gemini Pro</div>
+      <div class="role">gemini.google.com · PDF приложен</div>
+      <p>«Подмена аналитики сырым экспортом базы; пульт дата-сайентиста для маркетолога».</p>
+      <p class="muted small">Уникальное: виз-словарь — treemap болей · co-occurrence сеть · тепловая карта · bar gauges в таблицах.</p>
+      <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/02b-gemini.md" target="_blank" rel="noopener">Полный текст →</a>
+    </div>
+    <div class="op">
+      <div class="model">Олег</div>
+      <div class="role">арт-директор студии · живой дашборд, не скриншоты</div>
+      <p>«Табы и компактность — хорошо, картину вижу быстро. Но не могу понять главного: это хорошо или плохо? Живая тема или нет? Зашёл владелец клиники — и что?»</p>
+      <p class="muted small">Уникальное: 2 бага интерактива · локальные фильтры ленты · годы на осях · контрапункт «компактность — фича, Answers-first — слоем поверх, не дроблением».</p>
+      <a href="../consilium/sessions/2026-07-20-sf-dashboard-ux-audit/02d-oleg.md" target="_blank" rel="noopener">Полный текст →</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Артефакты консилиум-сессии: <code>consilium/sessions/2026-07-20-sf-dashboard-ux-audit/</code>
+    (бриф · промпт · три мнения · синтез Tier 1/2/3). Отчёт собран по протоколу Consilium v2,
+    обе внешние модели получили идентичный промпт и полный PDF со скриншотами.
+  </div>
+
+</div>
+<script defer src="https://chife-mod.github.io/sfg-dashboard/base/service-menu.js"></script>
+</body>
+</html>
